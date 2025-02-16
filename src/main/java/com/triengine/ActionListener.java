@@ -21,7 +21,7 @@ public class ActionListener implements MouseMotionListener, ComponentListener {
             svs.angleZ += e.getX()- lastPos[0];
             //svs.angleY += e.getY()- lastPos[1];
 
-            System.out.println(svs.angleZ);
+            //System.out.println(svs.angleZ);
         }
 
         lastPos[0] = e.getX();
