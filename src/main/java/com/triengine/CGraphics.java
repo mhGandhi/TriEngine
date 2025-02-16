@@ -101,8 +101,12 @@ public class CGraphics extends Graphics2D{
     }
 
     private int[] onScreen(Vec pSysPos){
-        assert projector != null;
-        return projector.project(pSysPos);
+        int[] ret = projector.project(pSysPos);
+
+        ret[0] += 500;
+        ret[1] += 250;
+
+        return ret;
     }
 
     /////////////////////////////////////////////////DELEGATE METHODS

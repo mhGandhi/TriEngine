@@ -1,5 +1,8 @@
 package com.triengine;
 
+import com.triengine.projectors.OrthogonalProjector;
+import com.triengine.projectors.SimpleProjector;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class Environment {
                 super.paint(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-                CGraphics cg = new CGraphics(g2d);
+                CGraphics cg = new CGraphics(g2d, new OrthogonalProjector(OrthogonalProjector.Plane.XY));
 
                 Vec e1 = Vec.o().x(100);
                 cg.setColor(Color.red);

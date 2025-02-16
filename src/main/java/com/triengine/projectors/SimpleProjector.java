@@ -5,8 +5,8 @@ import com.triengine.Vec;
 public class SimpleProjector extends Projector{
     @Override
     public int[] project(Vec pSysPos) {
-        int rX = 500;
-        int rY = 250;
+        int rX = 0;
+        int rY = 0;
 
         rX += (int)(pSysPos.y);
         rY -= (int)(pSysPos.z);
