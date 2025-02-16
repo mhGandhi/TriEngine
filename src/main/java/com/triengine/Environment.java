@@ -1,6 +1,8 @@
 package com.triengine;
 
 import com.triengine.projectors.CameraProjector;
+import com.triengine.projectors.Projector;
+import com.triengine.projectors.SimpleProjector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,15 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Environment extends JPanel {
-    final ViewState vs;
+    final Projector projector;
     List<Tri> triangles;
 
-    public Environment(ActionListener pAc){
-        vs = new ViewState();
+    public Environment(ActionListener pAc, Projector p){
+        this.projector = p;
         triangles = new ArrayList<>();
         {
             setBackground(Color.white);
             addMouseMotionListener(pAc);
+            addComponentListener(pAc);
         }
 
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
@@ -57,7 +60,7 @@ public class Environment extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-        CGraphics cg = new CGraphics(g2d, new CameraProjector(vs));
+        CGraphics cg = new CGraphics(g2d, projector);
 
         Vec e1 = Vec.o().x(100);
         cg.setColor(Color.red);

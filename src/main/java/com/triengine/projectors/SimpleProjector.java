@@ -1,6 +1,7 @@
 package com.triengine.projectors;
 
 import com.triengine.Vec;
+import com.triengine.projectors.viewstates.ViewState;
 
 public class SimpleProjector extends Projector{
     @Override
@@ -15,5 +16,9 @@ public class SimpleProjector extends Projector{
         rY += (int)(pSysPos.x * 0.5);
 
         return new int[] {rX,rY};
+    }
+
+    public class SimpleViewState extends ViewState {
+
     }
 }

@@ -1,6 +1,7 @@
 package com.triengine;
 
-import javax.swing.event.InternalFrameListener;
+import com.triengine.projectors.viewstates.ViewState;
+
 import java.awt.event.*;
 
 public class ActionListener implements MouseMotionListener, ComponentListener {
