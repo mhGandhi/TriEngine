@@ -29,10 +29,6 @@ public class CGraphics extends Graphics2D{
     final Vec e3 = Vec.o().z(100);
     final Vec oo = Vec.o();
 
-    public CGraphics(Graphics2D wrapped){
-        this(wrapped, new SimpleProjector());
-    }
-
     public CGraphics(Graphics2D wrapped, Projector pProjector) {
         this.wrapped = wrapped;
         this.projector = pProjector;
