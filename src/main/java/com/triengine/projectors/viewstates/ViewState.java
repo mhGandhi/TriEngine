@@ -1,5 +1,6 @@
 package com.triengine.projectors.viewstates;
 
-public abstract class ViewState {
-
+public class ViewState {
+    public int screenWidth = 0;
+    public int screenHeight = 0;
 }
