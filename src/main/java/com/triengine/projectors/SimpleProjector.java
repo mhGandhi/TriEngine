@@ -4,7 +4,7 @@ import com.triengine.Vec;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class SimpleProjector extends Projector{
-    final SimpleViewState svs;
+    public final SimpleViewState svs;
 
     public SimpleProjector() {
         this(new SimpleViewState());
