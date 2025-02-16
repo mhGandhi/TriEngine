@@ -41,6 +41,7 @@ public class CGraphics extends Graphics2D{
     public void drawVector(Vec pOA){
         int[] a = onScreen(pOA);
         int[] o = onScreen(oo);
+        if(a==null||o==null)return;
 
         drawLine(o[0], o[1], a[0], a[1]);
     }
@@ -48,11 +49,13 @@ public class CGraphics extends Graphics2D{
         //int[] off = onScreen(Vec.add(oo,pOff));
         int[] off = onScreen(pOff);
         int[] a = onScreen(Vec.add(pOA,pOff));
+        if(off==null||a==null)return;
 
         drawLine(off[0], off[1], a[0], a[1]);
     }
     public void drawPoint(Vec pPt){
         int[] p = onScreen(pPt);
+        if(p==null)return;
 
         drawOval(p[0]-5,p[1]-5,10,10);
     }
@@ -102,7 +105,7 @@ public class CGraphics extends Graphics2D{
 
     private int[] onScreen(Vec pSysPos){
         int[] ret = projector.project(pSysPos);
-
+        if(ret==null)return null;
         ret[0] += 500;
         ret[1] += 250;
 
