@@ -56,8 +56,8 @@ public class SimpleProjector extends Projector{
     }
 
     public static class SimpleViewState extends ViewState {
-        float angleX = 0;
-        float angleY = 0;
-        float angleZ = 0;
+        public double angleX = 0;
+        public double angleY = 0;
+        public double angleZ = 0;
     }
 }
