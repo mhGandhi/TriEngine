@@ -27,7 +27,7 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
         if(viewState instanceof SimpleProjector.SimpleViewState svs){
             if(currentMB==2){
                 svs.angleHorizontal += e.getX()- lastPos[0];
-                //svs.angleVertical += e.getY()- lastPos[1];
+                svs.angleVertical += e.getY()- lastPos[1];
 
                 if(svs.angleVertical >359)svs.angleVertical -=360;
                 if(svs.angleVertical <0)svs.angleVertical +=360;
@@ -36,7 +36,7 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
             }
             else if(currentMB==1){
                 svs.offSetY += e.getX()- lastPos[0];
-                //svs.offSetX += e.getY()- lastPos[1];
+                svs.offSetX += e.getY()- lastPos[1];
             }else if(currentMB==3){//todo temp for testt
                 app.elevateC(e.getY()- lastPos[1]);
             }
