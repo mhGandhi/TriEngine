@@ -17,15 +17,18 @@ public class OrthogonalProjector extends Projector{
 
     @Override
     public int[] project(Vec pSysPos) {
+        double sOfX = (double) viewState.screenWidth /2;
+        double sOfY = (double) viewState.screenHeight /2;
+
         switch (perspective){
             case XY -> {
-                return new int[] {(int)pSysPos.x, (int)pSysPos.y,   (int)pSysPos.z};
+                return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.y+sOfY),   (int)pSysPos.z};
             }
             case YZ -> {
-                return new int[] {(int)pSysPos.y, (int)pSysPos.z,   (int)pSysPos.x};
+                return new int[] {(int)(pSysPos.y+sOfX), (int)(pSysPos.z+sOfY),   (int)pSysPos.x};
             }
             case XZ -> {
-                return new int[] {(int)pSysPos.x, (int)pSysPos.z,   (int)pSysPos.y};
+                return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.z+sOfY),   (int)pSysPos.y};
             }
         }
         System.err.println("Invalid Plane, reverting to XY");
