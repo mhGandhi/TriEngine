@@ -5,7 +5,7 @@ import com.triengine.projectors.viewstates.ViewState;
 
 import java.awt.event.*;
 
-public class ActionListener implements MouseMotionListener, ComponentListener {
+public class ActionListener implements MouseMotionListener, ComponentListener, MouseListener {
     private final ViewState viewState;
     private final App app;
 
@@ -18,8 +18,14 @@ public class ActionListener implements MouseMotionListener, ComponentListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if(viewState instanceof SimpleProjector.SimpleViewState svs){
-            svs.angleZ += e.getX()- lastPos[0];
-            svs.angleY += e.getY()- lastPos[1];
+            if(currentMB==2){
+                svs.angleZ += e.getX()- lastPos[0];
+                svs.angleY += e.getY()- lastPos[1];
+            }
+            else if(currentMB==1){
+                svs.offSetY += e.getX()- lastPos[0];
+                svs.offSetX += e.getY()- lastPos[1];
+            }
 
             //System.out.println(svs.angleZ);
         }
@@ -75,6 +81,32 @@ public class ActionListener implements MouseMotionListener, ComponentListener {
      */
     @Override
     public void componentHidden(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    int currentMB = 0;
+    @Override
+    public void mousePressed(MouseEvent e) {
+        currentMB = e.getButton();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }

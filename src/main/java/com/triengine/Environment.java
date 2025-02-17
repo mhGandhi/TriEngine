@@ -21,6 +21,7 @@ public class Environment extends JPanel {
             setBackground(Color.white);
             addMouseMotionListener(pAc);
             addComponentListener(pAc);
+            addMouseListener(pAc);
         }
 
         /*
