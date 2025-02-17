@@ -70,6 +70,13 @@ public class Environment extends JPanel {
         triangles.addAll(TriGen.strip(
                 c[0],c[1],c[2],c[3]
         ));
+        triangles.addAll(TriGen.rectangle(
+                Vec.v(150,50,150),
+                Vec.v(50,150,150),
+                Axis.Z
+        ));
+
+
 
         {//sort
             try {
@@ -79,7 +86,7 @@ public class Environment extends JPanel {
             }
         }
 
-        {//painting shenanigans
+        {//painting shenanigans todo
             for (int i = triangles.size() - 1; i > 0; i--) {
                 Tri t = triangles.get(i);
                 if (t.contains(projector.viewState.mousePos, projector)) {
