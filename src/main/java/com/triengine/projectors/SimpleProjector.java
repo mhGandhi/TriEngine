@@ -11,10 +11,7 @@ public class SimpleProjector extends Projector{
 
 
     public SimpleProjector() {
-        this(new SimpleViewState());
-    }
-    public SimpleProjector(SimpleViewState svs) {
-        super(svs);
+        super(new SimpleViewState());
     }
     public SimpleViewState getSvs(){
         return (SimpleViewState) this.viewState;

@@ -7,16 +7,9 @@ import com.triengine.projectors.viewstates.ViewState;
 public class OrthogonalProjector extends Projector{
     private final Plane perspective;
 
-    public OrthogonalProjector(ViewState pvs) {
-        this(Plane.XY,pvs);
-    }
-    public OrthogonalProjector(Plane perspective, ViewState pvs) {
-        super(pvs);
+    public OrthogonalProjector(Plane perspective) {
+        super(new ViewState());
         this.perspective = perspective;
-    }
-
-    public OrthogonalProjector() {
-        this(new ViewState());
     }
 
     @Override
