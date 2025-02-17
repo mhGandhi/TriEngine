@@ -10,9 +10,10 @@ import java.awt.*;
 
 public class App {
     Environment env;
+    Projector projector;
 
     public App(){
-        Projector projector = new SimpleProjector();
+        projector = new SimpleProjector();
         ActionHandler actionListener = new ActionHandler(this, projector.viewState);
 
 
@@ -28,7 +29,9 @@ public class App {
         }
     }
 
-
+    public void setProjector(Projector p){
+        this.projector = p;
+    }
 
     public void repaint() {
         env.repaint();
