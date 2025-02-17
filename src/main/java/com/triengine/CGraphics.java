@@ -129,8 +129,8 @@ public class CGraphics extends Graphics2D{
     private int[] onScreen(Vec pSysPos){
         int[] ret = projector.project(pSysPos);
         if(ret==null)return null;
-        ret[0] += 500;
-        ret[1] += 250;
+        //ret[0] += 500;
+        //ret[1] += 250;
 
         return ret;
     }

@@ -1,13 +1,13 @@
 package com.triengine;
 
-import com.triengine.projectors.CameraProjector;
 import com.triengine.projectors.Projector;
-import com.triengine.projectors.SimpleProjector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.List;
 
 public class Environment extends JPanel {
@@ -22,15 +22,19 @@ public class Environment extends JPanel {
             addMouseMotionListener(pAc);
             addComponentListener(pAc);
         }
+
+        /*
         triangles.addAll(Tri.rectangleNormalToAxis(
-                Vec.o().x(50).y(50).z(100),
-                Vec.o().x(50).y(-50).z(75),
+                Vec.o().x(75).y(50).z(75),
+                Vec.o().x(75).y(-50).z(50),
                 Axis.X
         ));
-
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
         triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
+         */
+
+        triangles.addAll(fromFiles());
     }
 
     @Override
@@ -58,7 +62,7 @@ public class Environment extends JPanel {
         cg.setColor(Color.black);
 
         java.util.List<Vec> vecs = List.of(
-                Vec.o().x(-100).y(0).z(50)
+                //Vec.o().x(1).y((0.707/2)).z((0.707/2)).normalize().scale(100)
         );
         for(Vec v : vecs){
             cg.drawVector(v);
@@ -77,19 +81,28 @@ public class Environment extends JPanel {
         }
 
         {//draw
+            int i = 0;
             for(Tri t : triangles){
                 fillTriangle(cg,t);
-                //drawTriangle(cg,t);
+                cg.setColor(Color.BLACK);
+                drawTriangle(cg,t);
+                //debugTriangle(cg,t,triangles.size()-i);
+                i++;
             }
         }
     }
 
     void drawTriangle(CGraphics cg, Tri t){
-        cg.setColor(t.col);
-
         Vec[] verts = {t.a,t.b,t.c};
         cg.drawPolygon(verts);
-        cg.drawPoint(t.avgCoordinate());
+    }
+
+    void debugTriangle(CGraphics cg, Tri t, int i){
+        Vec[] verts = {t.a,t.b,t.c};
+        cg.drawPolygon(verts);
+        Vec center = t.avgCoordinate();
+        cg.drawPoint(center);
+        cg.drawString(center,i<10?i+"":"#");
         /*
         cg.setColor(Color.red);
         cg.drawPoint(t.a);
@@ -104,5 +117,64 @@ public class Environment extends JPanel {
 
         Vec[] verts = {t.a,t.b,t.c};
         cg.fillPolygon(verts);
+        cg.drawPolygon(verts);
+    }
+
+    Collection<Tri> fromFiles(){
+        Collection<Tri> ret = List.of();
+        System.out.println(System.getProperty("user.dir"));
+        String path = System.getProperty("user.dir")+"/geometry/";
+
+        Map<String,Vec> points = new HashMap<>();
+        // Read points.txt
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(path + "points.txt"));
+            for (String line : lines) {
+                if(line.startsWith("#"))continue;
+                String[] parts = line.split(";");
+                if (parts.length >= 4) {
+                    String name = parts[0];
+                    double x = Double.parseDouble(parts[1]);
+                    double y = Double.parseDouble(parts[2]);
+                    double z = Double.parseDouble(parts[3]);
+                    points.put(name, new Vec(x, y, z));
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading points.txt: " + e.getMessage());
+            return List.of(); // Return an empty list in case of error
+        }
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(path + "triangles.txt"));
+            for (String line : lines) {
+                if(line.startsWith("#"))continue;
+                String[] parts = line.split(";");
+                if (parts.length >= 4) {
+                    Vec a = points.get(parts[0]);
+                    Vec b = points.get(parts[1]);
+                    Vec c = points.get(parts[2]);
+
+                    String hexColor = parts[3].split(" ")[0]; // Parse hex color
+                    Color color = Color.MAGENTA;
+                    try{
+                        color = Color.decode(hexColor);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                    if (a != null && b != null && c != null) {
+                        triangles.add(new Tri(a, b, c, color));
+                    } else {
+                        System.err.println("Error: Undefined point in triangle " + line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading triangles.txt: " + e.getMessage());
+            return List.of();
+        }
+
+        return ret;
     }
 }

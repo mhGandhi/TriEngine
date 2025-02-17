@@ -19,7 +19,7 @@ public class ActionListener implements MouseMotionListener, ComponentListener {
     public void mouseDragged(MouseEvent e) {
         if(viewState instanceof SimpleProjector.SimpleViewState svs){
             svs.angleZ += e.getX()- lastPos[0];
-            //svs.angleY += e.getY()- lastPos[1];
+            svs.angleY += e.getY()- lastPos[1];
 
             //System.out.println(svs.angleZ);
         }

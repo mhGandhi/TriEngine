@@ -1,0 +1,14 @@
+# Base of the Pyramid
+BaseFrontLeft;50;50;0
+BaseFrontRight;50;-50;0
+BaseBackLeft;-50;50;0
+BaseBackRight;-50;-50;0
+
+# Tip of the Pyramid (Golden Tip)
+Tip;0;0;100
+
+# Gray part (vertices above the base to form the trapezoid)
+GrayFrontLeft;30;30;50
+GrayFrontRight;30;-30;50
+GrayBackLeft;-30;30;50
+GrayBackRight;-30;-30;50
