@@ -41,13 +41,15 @@ public class ActionHandler implements MouseMotionListener, ComponentListener, Mo
             else if(currentMB==1){
                 svs.offSetY += e.getX()- lastPos[0];
                 svs.offSetX += e.getY()- lastPos[1];
-            }else if(currentMB==3){//todo temp for testt
-                app.elevateC(e.getY()- lastPos[1]);
             }
 
             //System.out.println();
             //System.out.println(svs.angleHorizontal);
             //System.out.println(svs.offSetY);
+        }
+
+        if(currentMB==3){//todo temp for testt
+            app.elevateC(e.getY()- lastPos[1]);
         }
 
         lastPos[0] = e.getX();
