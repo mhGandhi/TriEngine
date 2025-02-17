@@ -15,6 +15,10 @@ public class OrthogonalProjector extends Projector{
         this.perspective = perspective;
     }
 
+    public OrthogonalProjector() {
+        this(new ViewState());
+    }
+
     @Override
     public int[] project(Vec pSysPos) {
         switch (perspective){
