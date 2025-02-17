@@ -73,7 +73,14 @@ public class CGraphics extends Graphics2D{
         int[] p = onScreen(pPt);
         if(p==null)return;
 
-        drawOval(p[0]-5,p[1]-5,10,10);
+        drawOval(p[0]-6,p[1]-6,12,12);
+    }
+
+    public void drawString(Vec center, String s) {
+        int[] pt = onScreen(center);
+        if(pt == null) return;
+
+        drawString(s,pt[0]-3,pt[1]+5);
     }
 
 
