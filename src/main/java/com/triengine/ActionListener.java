@@ -78,7 +78,7 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
             }else{
                 svs.scale = svs.scale*1.1;
             }
-            System.out.println(svs.scale);
+            //System.out.println(svs.scale);
         }
         app.repaint();
     }
