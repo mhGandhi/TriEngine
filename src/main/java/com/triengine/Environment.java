@@ -18,10 +18,10 @@ public class Environment extends JPanel {
 
     Geometry pyramid;
     Vec[] c = {
-            Vec.o().x(500).y(-100).z(-10),
-            Vec.o().x(500).y(100).z(-10),
-            Vec.o().x(-500).y(100).z(-10),
-            Vec.o().x(-500).y(-100).z(-10)
+            Vec.v(500,-100,-10),
+            Vec.v(500,100,-10),
+            Vec.v(-500,100,-10),
+            Vec.v(-500,-100,-10)
     };
 
     public Environment(ActionListener pAc, Projector p){

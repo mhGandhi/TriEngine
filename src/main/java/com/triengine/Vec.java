@@ -36,6 +36,10 @@ public class Vec {
         return new Vec();
     }
 
+    public static Vec v(double x, double y, double z){
+        return new Vec(x,y,z);
+    }
+
     public static Vec add(Vec... vecs){
         Vec ret = Vec.o();
 
@@ -66,11 +70,11 @@ public class Vec {
     }
 
     public Vec inv() {
-        return Vec.o().x(this.x*-1).y(this.y*-1).z(this.z*-1);
+        return Vec.v(this.x*-1,this.y*-1,this.z*-1);
     }
 
     public Vec scale(double pScale) {
-        return Vec.o().x(this.x*pScale).y(this.y*pScale).z(this.z*pScale);
+        return Vec.v(this.x*pScale,this.y*pScale,this.z*pScale);
     }
 
     public double[] array() {

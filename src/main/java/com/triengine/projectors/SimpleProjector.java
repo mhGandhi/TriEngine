@@ -16,7 +16,7 @@ public class SimpleProjector extends Projector{
 
     @Override
     public int[] project(Vec pSysPos) {
-        Vec centerOfView = Vec.o().x(svs.offSetX).y(svs.offSetY).z(svs.offSetZ);
+        Vec centerOfView = Vec.v(svs.offSetX,svs.offSetY,svs.offSetZ);
         pSysPos = Vec.add(pSysPos, centerOfView).scale(svs.scale);
 
         pSysPos = rotatePv(pSysPos, centerOfView, svs.angleX, Axis.X);
@@ -34,7 +34,7 @@ public class SimpleProjector extends Projector{
         rY += (int)(pSysPos.x * (0.707/2));
 
 
-        Vec frontDir = Vec.o().x(1).y((0.707/2)).z((0.707/2)).normalize();
+        Vec frontDir = Vec.v(1,(0.707/2),(0.707/2)).normalize();
         rZ = (int)pSysPos.dot(frontDir);
 
         return new int[] {rX,rY,rZ};
