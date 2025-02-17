@@ -19,7 +19,7 @@ public class FileGeometry extends Geometry{
         this.triangles = fromFiles(pFileName,pMates);
     }
     public FileGeometry(String pFileName){
-        this(pFileName, s->Vec.o() );
+        this(pFileName, s->null );
     }
 
     @Override
