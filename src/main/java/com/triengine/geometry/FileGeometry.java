@@ -46,7 +46,9 @@ public class FileGeometry extends Geometry{
                     double x = Double.parseDouble(parts[1]);
                     double y = Double.parseDouble(parts[2]);
                     double z = Double.parseDouble(parts[3]);
-                    points.put(name, new SetVector(x, y, z));
+                    points.put(name, pMates.apply(name).v());
+                    if(points.get(name)==null)
+                        points.put(name,new SetVector(x, y, z));
                 }
             }
         } catch (IOException e) {
