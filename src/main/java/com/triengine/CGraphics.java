@@ -23,20 +23,40 @@ public class CGraphics extends Graphics2D{
     private final Graphics2D wrapped;
     private final Projector projector;
 
-    //needed?
-    final Vec e1 = Vec.o().x(100);//1
-    final Vec e2 = Vec.o().y(100);
-    final Vec e3 = Vec.o().z(100);
-    final Vec oo = Vec.o();
-
     public CGraphics(Graphics2D wrapped, Projector pProjector) {
         this.wrapped = wrapped;
         this.projector = pProjector;
     }
 
+     void drawPolygon(Vec[] pVertices){
+        int n = pVertices.length;
+        int[] xPoints = new int[n];
+         int[] yPoints = new int[n];
+         for (int i = 0; i<n; i++) {
+             int[] pt = onScreen(pVertices[i]);
+             xPoints[i] = pt[0];
+             yPoints[i] = pt[1];
+         }
+        
+        drawPolygon(xPoints,yPoints,n);
+     }
+
+    void fillPolygon(Vec[] pVertices){
+        int n = pVertices.length;
+        int[] xPoints = new int[n];
+        int[] yPoints = new int[n];
+        for (int i = 0; i<n; i++) {
+            int[] pt = onScreen(pVertices[i]);
+            xPoints[i] = pt[0];
+            yPoints[i] = pt[1];
+        }
+
+        fillPolygon(xPoints,yPoints,n);
+    }
+
     public void drawVector(Vec pOA){
         int[] a = onScreen(pOA);
-        int[] o = onScreen(oo);
+        int[] o = onScreen(Vec.o());
         if(a==null||o==null)return;
 
         drawLine(o[0], o[1], a[0], a[1]);

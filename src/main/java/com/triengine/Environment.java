@@ -27,34 +27,6 @@ public class Environment extends JPanel {
         triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
     }
 
-    private void drawTriangles(CGraphics cg) {
-        {//sort
-            //
-
-        }
-
-        {//draw
-            for(Tri t : triangles){
-                cg.setColor(t.col);
-
-                Vec ab = Vec.add(t.b,t.a.inv());
-                Vec bc = Vec.add(t.c,t.b.inv());
-                Vec ca = Vec.add(t.a,t.c.inv());
-
-                cg.drawVector(ab,t.a);
-                cg.drawVector(bc,t.b);
-                cg.drawVector(ca,t.c);
-
-                cg.setColor(Color.red);
-                cg.drawPoint(t.a);
-                cg.setColor(Color.green);
-                cg.drawPoint(t.b);
-                cg.setColor(Color.blue);
-                cg.drawPoint(t.c);
-            }
-        }
-    }
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -87,5 +59,39 @@ public class Environment extends JPanel {
         }
 
         drawTriangles(cg);
+    }
+
+    private void drawTriangles(CGraphics cg) {
+        {//sort
+            //
+
+        }
+
+        {//draw
+            for(Tri t : triangles){
+                drawTriangle(cg,t);
+            }
+        }
+    }
+
+    void drawTriangle(CGraphics cg, Tri t){
+        cg.setColor(t.col);
+
+        Vec[] verts = {t.a,t.b,t.c};
+        cg.drawPolygon(verts);
+        /*
+        cg.setColor(Color.red);
+        cg.drawPoint(t.a);
+        cg.setColor(Color.green);
+        cg.drawPoint(t.b);
+        cg.setColor(Color.blue);
+        cg.drawPoint(t.c);
+        */
+    }
+    void fillTriangle(CGraphics cg, Tri t){
+        cg.setColor(t.col);
+
+        Vec[] verts = {t.a,t.b,t.c};
+        cg.fillPolygon(verts);
     }
 }

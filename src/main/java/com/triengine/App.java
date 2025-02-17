@@ -31,6 +31,6 @@ public class App {
 
     public void repaint() {
         env.repaint();
-        System.out.println("REPAINT");
+        //System.out.println("REPAINT");
     }
 }

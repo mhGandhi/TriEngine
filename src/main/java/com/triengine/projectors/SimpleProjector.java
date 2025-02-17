@@ -25,8 +25,8 @@ public class SimpleProjector extends Projector{
         rX += (int)(pSysPos.y);
         rY -= (int)(pSysPos.z);
 
-        rX -= (int)(pSysPos.x * 0.5);
-        rY += (int)(pSysPos.x * 0.5);
+        rX -= (int)(pSysPos.x * (0.707/2));
+        rY += (int)(pSysPos.x * (0.707/2));
 
         return new int[] {rX,rY};
     }
