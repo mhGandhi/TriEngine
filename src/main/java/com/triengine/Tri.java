@@ -64,22 +64,22 @@ public class Tri {
         return !(hasNeg && hasPos);
     }
 
-    public static Collection<Tri> t(Vec a, Vec b, Vec c, Color color) {
+    public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, Color color) {
         return Tri.t(a,b,c,25d, color);
     }
 
-    public static Collection<Tri> t(Vec a, Vec b, Vec c){
+    public static Collection<Tri> t(SetVector a, SetVector b, SetVector c){
         return Tri.t(a,b,c,Color.GRAY);
     }
 
-    public static Collection<Tri> t(Vec a, Vec b, Vec c, double pMaxSideLen){
+    public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, double pMaxSideLen){
         return Tri.t(a,b,c,pMaxSideLen,Color.GRAY,0);
     }
-    public static Collection<Tri> t(Vec a, Vec b, Vec c, double pMaxSideLen, Color pColor){
+    public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, double pMaxSideLen, Color pColor){
         return Tri.t(a,b,c,pMaxSideLen,pColor,0);
     }
 
-    public static Collection<Tri> t(Vec a, Vec b, Vec c, double pMaxSideLen, Color pColor, int pRecDepth){
+    public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, double pMaxSideLen, Color pColor, int pRecDepth){
         pRecDepth++;
         if(pRecDepth>=9){
             return List.of(new Tri(a,b,c,pColor));

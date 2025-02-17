@@ -4,6 +4,7 @@ import com.triengine.geometry.FileGeometry;
 import com.triengine.geometry.Geometry;
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
+import com.triengine.vectors.UnstableVector;
 import com.triengine.vectors.Vec;
 import com.triengine.vectors.SetVector;
 
@@ -76,6 +77,13 @@ public class Environment extends JPanel {
                 Vec.v(150,50,150),
                 Vec.v(50,150,150),
                 Axis.Z
+        ));
+
+        triangles.addAll(Tri.t(
+                Vec.v(200,200,200),
+                Vec.v(300,200,300),
+                new UnstableVector(Vec.v(200,300,200),10d).v(),
+                Color.CYAN
         ));
 
         {//sort

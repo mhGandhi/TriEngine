@@ -45,6 +45,10 @@ public abstract class Vec {
         return ret;
     }
 
+    public SetVector v(){
+        return Vec.v(getX(),getY(),getZ());
+    }
+
     public SetVector inv() {
         return scale(-1);
     }
