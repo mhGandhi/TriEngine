@@ -38,9 +38,13 @@ public class FileGeometry extends ImmutableGeometry {
                     double x = Double.parseDouble(parts[1]);
                     double y = Double.parseDouble(parts[2]);
                     double z = Double.parseDouble(parts[3]);
-                    points.put(name, pMates.apply(name).v());
-                    if(points.get(name)==null)
+
+                    Vec mate = pMates.apply(name);
+                    if(mate==null){
                         points.put(name,new SetVector(x, y, z));
+                    }else{
+                        points.put(name, mate.v());
+                    }
                 }
             }
         } catch (IOException e) {
