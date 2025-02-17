@@ -22,16 +22,15 @@ public class Environment extends JPanel {
             addMouseMotionListener(pAc);
             addComponentListener(pAc);
         }
+        triangles.addAll(Tri.rectangleNormalToAxis(
+                Vec.o().x(50).y(50).z(100),
+                Vec.o().x(50).y(-50).z(75),
+                Axis.X
+        ));
 
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
         triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
-
-        triangles.addAll(Tri.rectangleNormalToAxis(
-                Vec.o().x(50).y(50).z(150),
-                Vec.o().x(50).y(-50).z(125),
-                Axis.X
-        ));
     }
 
     @Override
@@ -71,17 +70,16 @@ public class Environment extends JPanel {
     private void drawTriangles(CGraphics cg) {
         {//sort
             try {
-                triangles.sort(Comparator.comparingInt(triangle -> projector.project(triangle.avgCoordinate())[3]));
-            }catch(Exception _){
-
+                triangles.sort(Comparator.comparingInt(triangle -> projector.project(triangle.avgCoordinate())[2]));
+            }catch(Exception e){
+                e.printStackTrace();
             }
-
-
         }
 
         {//draw
             for(Tri t : triangles){
-                drawTriangle(cg,t);
+                fillTriangle(cg,t);
+                //drawTriangle(cg,t);
             }
         }
     }
