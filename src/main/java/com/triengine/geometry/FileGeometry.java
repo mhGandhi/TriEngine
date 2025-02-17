@@ -12,24 +12,16 @@ import java.util.*;
 import java.util.List;
 import java.util.function.Function;
 
-public class FileGeometry extends Geometry{
-    private Collection<Tri> triangles;
+public class FileGeometry extends ImmutableGeometry {
 
     public FileGeometry(String pFileName, Function<String, Vec> pMates){
-        this.triangles = fromFiles(pFileName,pMates);
+        super(fromFiles(pFileName,pMates));
     }
     public FileGeometry(String pFileName){
-        this(pFileName, s->null );
+        this(pFileName, s->null);
     }
 
-    @Override
-    public Collection<Tri> getTriangles() {
-        return triangles;
-    }
-
-
-
-    Collection<Tri> fromFiles(String pFileName, Function<String, Vec> pMates){
+    private static Collection<Tri> fromFiles(String pFileName, Function<String, Vec> pMates){
         List<Tri> ret = new ArrayList<>();
         System.out.println(System.getProperty("user.dir"));
         String path = System.getProperty("user.dir")+"/geometry/";
