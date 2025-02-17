@@ -40,6 +40,24 @@ public class Vec {
         return new Vec(x,y,z);
     }
 
+    public Vec pro(Plane pPlane){
+        switch (pPlane){
+            case XY -> {
+                return Vec.v(this.x,this.y,0);
+            }
+            case XZ -> {
+                return Vec.v(this.x,0,this.z);
+            }
+            case YZ -> {
+                return Vec.v(0,this.y,this.z);
+            }
+        }
+
+        //todo central return for this
+        System.err.println("invalid plane; reverting to nullvec");
+        return Vec.o();
+    }
+
     public static Vec add(Vec... vecs){
         Vec ret = Vec.o();
 
