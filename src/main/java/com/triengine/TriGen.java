@@ -23,10 +23,12 @@ public class TriGen {
             }
         }
 
-        Tri t1 = new Tri(p1,pi1,pi2);
-        Tri t2 = new Tri(p2,pi1,pi2);
+        Collection<Tri> t1 = Tri.t(p1,pi1,pi2);
+        Collection<Tri> t2 = Tri.t(p2,pi1,pi2);
 
-        return List.of(t1,t2);
+        ArrayList<Tri> ret = new ArrayList<>(t1);
+        ret.addAll(t2);
+        return ret;
     }
     public static Collection<Tri> strip(Vec p1, Vec p2, Axis pAxis){
         Vec pi1 = Vec.o();
@@ -109,7 +111,7 @@ public class TriGen {
                 t[0] = backRight;
                 t[1] = backLeft;
             }
-            triangles.add(new Tri(t[0],t[1],t[2]));
+            triangles.addAll(Tri.t(t[0],t[1],t[2]));
 
             nextA = Vec.add(b,direction);
             nextB = a;

@@ -38,7 +38,7 @@ public class Environment extends JPanel {
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
         triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
          */
-        triangles.addAll(Tri.strip(
+        triangles.addAll(TriGen.strip(
                 c[0],c[1],c[2],c[3]
         ));
 

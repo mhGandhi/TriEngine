@@ -21,6 +21,11 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
             if(currentMB==2){
                 svs.angleZ += e.getX()- lastPos[0];
                 svs.angleY += e.getY()- lastPos[1];
+
+                if(svs.angleY>359)svs.angleY-=360;
+                if(svs.angleY<0)svs.angleY+=360;
+                if(svs.angleZ>359)svs.angleZ-=360;
+                if(svs.angleZ<0)svs.angleZ+=360;//todo put into viewstate
             }
             else if(currentMB==1){
                 svs.offSetY += e.getX()- lastPos[0];
