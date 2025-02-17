@@ -30,6 +30,8 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
             else if(currentMB==1){
                 svs.offSetY += e.getX()- lastPos[0];
                 svs.offSetX += e.getY()- lastPos[1];
+            }else if(currentMB==3){//todo temp for testt
+                app.elevateC(e.getY()- lastPos[1]);
             }
 
             //System.out.println(svs.angleZ);

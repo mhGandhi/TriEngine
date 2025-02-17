@@ -33,4 +33,11 @@ public class App {
         env.repaint();
         //System.out.println("REPAINT");
     }
+
+    public void elevateC(int elev) {
+        for(Vec v : env.c){
+            v.z-=elev;
+        }
+        env.repaint();
+    }
 }

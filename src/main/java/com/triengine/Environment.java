@@ -12,15 +12,15 @@ import java.util.List;
 
 public class Environment extends JPanel {
     final Projector projector;
-    List<Tri> triangles;
+    List<Tri> staticTriangles;
 
-    Vec[] c = {Vec.o().x(100).y(-100).z(-10),
-            Vec.o().x(100).y(100).z(-10),
-            Vec.o().x(-100).y(100).z(-10),
-            Vec.o().x(-100).y(-100).z(-10)};
+    Vec[] c = {Vec.o().x(500).y(-100).z(-10),
+            Vec.o().x(500).y(100).z(-10),
+            Vec.o().x(-500).y(100).z(-10),
+            Vec.o().x(-500).y(-100).z(-10)};
     public Environment(ActionListener pAc, Projector p){
         this.projector = p;
-        triangles = new ArrayList<>();
+        staticTriangles = new ArrayList<>();
         {
             setBackground(Color.white);
             addMouseMotionListener(pAc);
@@ -28,21 +28,9 @@ public class Environment extends JPanel {
             addMouseListener(pAc);
         }
 
-        /*
-        triangles.addAll(Tri.rectangle(
-                Vec.o().x(75).y(50).z(75),
-                Vec.o().x(75).y(-50).z(50),
-                Axis.X
-        ));
-        triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
-        triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
-        triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
-         */
-        triangles.addAll(TriGen.strip(
-                c[0],c[1],c[2],c[3]
-        ));
 
-        triangles.addAll(fromFiles());
+
+        staticTriangles.addAll(fromFiles());
     }
 
     @Override
@@ -76,7 +64,7 @@ public class Environment extends JPanel {
             cg.drawVector(v);
         }
 
-        drawTriangles(cg);
+        drawTriangles(cg, makeTriangles());
 
         cg.drawPoint(c[0]);
         cg.drawPoint(c[1]);
@@ -84,7 +72,31 @@ public class Environment extends JPanel {
         cg.drawPoint(c[3]);
     }
 
-    private void drawTriangles(CGraphics cg) {
+    private Collection<Tri> makeTriangles(){
+        Collection<Tri> triangles = new ArrayList<>();
+        triangles.addAll(staticTriangles);
+        /*
+        triangles.addAll(Tri.rectangle(
+                Vec.o().x(75).y(50).z(75),
+                Vec.o().x(75).y(-50).z(50),
+                Axis.X
+        ));
+        triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
+        triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
+        triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
+         */
+        triangles.addAll(TriGen.strip(
+                c[0],c[1],c[2],c[3]
+        ));
+
+        return triangles;
+    }
+
+    private void drawTriangles(CGraphics cg, Collection<Tri> pTriangles) {
+        List<Tri> triangles = new ArrayList<>(pTriangles);
+
+        //System.out.println("drawing "+triangles.size()+" triangles");
+
         {//sort
             try {
                 triangles.sort(Comparator.comparingInt(triangle -> projector.project(triangle.avgCoordinate())[2]));
@@ -97,10 +109,10 @@ public class Environment extends JPanel {
             int i = 0;
             for(Tri t : triangles){
                 fillTriangle(cg,t);
-                cg.setColor(Color.BLACK);
-                //drawTriangle(cg,t);
+                cg.setColor(new Color(0,0,0,100));
+                drawTriangle(cg,t);
                 cg.setColor(Color.WHITE);
-                debugTriangle(cg,t,triangles.size()-i);
+                //debugTriangle(cg,t,triangles.size()-i);
                 i++;
             }
         }
@@ -178,7 +190,7 @@ public class Environment extends JPanel {
                     }
 
                     if (a != null && b != null && c != null) {
-                        triangles.add(new Tri(a, b, c, color));
+                        staticTriangles.addAll(Tri.t(a, b, c, color));
                     } else {
                         System.err.println("Error: Undefined point in triangle " + line);
                     }
