@@ -25,6 +25,12 @@ public class Environment extends JPanel {
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
         triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
+
+        triangles.addAll(Tri.rectangleNormalToAxis(
+                Vec.o().x(50).y(50).z(150),
+                Vec.o().x(50).y(-50).z(125),
+                Axis.X
+        ));
     }
 
     @Override
