@@ -21,6 +21,9 @@ public class Tri {
         this.col = pCol;
     }
 
+    public Vec avgCoordinate(){
+        return Vec.add(a,b,c).scale((double)1/3);
+    }
 
     public static Collection<Tri> rectangleNormalToAxis(Vec p1, Vec p2, Axis pAxis){
         Vec pi1 = Vec.o();

@@ -7,6 +7,7 @@ import com.triengine.projectors.SimpleProjector;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Environment extends JPanel {
@@ -69,7 +70,12 @@ public class Environment extends JPanel {
 
     private void drawTriangles(CGraphics cg) {
         {//sort
-            //
+            try {
+                triangles.sort(Comparator.comparingInt(triangle -> projector.project(triangle.avgCoordinate())[3]));
+            }catch(Exception _){
+
+            }
+
 
         }
 
@@ -85,6 +91,7 @@ public class Environment extends JPanel {
 
         Vec[] verts = {t.a,t.b,t.c};
         cg.drawPolygon(verts);
+        cg.drawPoint(t.avgCoordinate());
         /*
         cg.setColor(Color.red);
         cg.drawPoint(t.a);
