@@ -28,7 +28,7 @@ public class ActionHandler implements MouseMotionListener, ComponentListener, Mo
     int[] lastPos = {0,0};
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(viewState instanceof SimpleProjector.SimpleViewState svs){
+        if(viewState instanceof SimpleProjector.SimpleViewState svs){//todo put into viewstate somehow maybe
             if(currentMB==2){
                 svs.angleHorizontal += e.getX()- lastPos[0];
                 svs.angleVertical += e.getY()- lastPos[1];
