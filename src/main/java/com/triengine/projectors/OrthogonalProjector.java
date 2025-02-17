@@ -25,10 +25,10 @@ public class OrthogonalProjector extends Projector{
                 return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.y+sOfY),   (int)pSysPos.z};
             }
             case YZ -> {
-                return new int[] {(int)(pSysPos.y+sOfX), (int)(pSysPos.z+sOfY),   (int)pSysPos.x};
+                return new int[] {(int)(pSysPos.y+sOfX), (int)(pSysPos.z*-1+sOfY),   (int)pSysPos.x};
             }
             case XZ -> {
-                return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.z+sOfY),   (int)pSysPos.y};
+                return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.z*-1+sOfY),   (int)pSysPos.y};
             }
         }
         System.err.println("Invalid Plane, reverting to XY");
