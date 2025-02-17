@@ -16,7 +16,6 @@ import java.util.List;
 public class Environment extends JPanel {
     Projector projector;
 
-    Geometry staticGeo;
     Geometry pyramid;
     Vec[] c = {
             Vec.o().x(500).y(-100).z(-10),
@@ -35,7 +34,6 @@ public class Environment extends JPanel {
             addMouseWheelListener(pAc);
         }
 
-        staticGeo = new SimpleGeometry();
         pyramid = new FileGeometry("pyramid");
     }
 
@@ -47,49 +45,26 @@ public class Environment extends JPanel {
         CGraphics cg = new CGraphics(g2d, projector);
 
         {//draw bg geometry
-            Vec e1 = Vec.o().x(100);
+            Vec e1 = Vec.o().x(1000);
             cg.setColor(Color.red);
             cg.drawStraight(e1);
-            Vec e2 = Vec.o().y(100);
+            Vec e2 = Vec.o().y(1000);
             cg.setColor(Color.green);
             cg.drawStraight(e2);
-            Vec e3 = Vec.o().z(100);
+            Vec e3 = Vec.o().z(1000);
             cg.setColor(Color.blue);
             cg.drawStraight(e3);
-
-            //cg.setColor(new Color(128,128,128, 128));
-            //cg.fillPlane(e1,e2,Vec.o().z(50));
-            //cg.setColor(new Color(0,0,0, 150));
-            //cg.drawPlane(e1,e2,Vec.o().z(50));
-
-            cg.setColor(Color.black);
-
-            java.util.List<Vec> vecs = List.of(
-                    //Vec.o().x(1).y((0.707/2)).z((0.707/2)).normalize().scale(100)
-            );
-            for(Vec v : vecs){
-                cg.drawVector(v);
-            }
         }
 
         drawTriangles(cg, makeTriangles());
+
+        //todo draw temp round plane indicators
     }
 
     private Collection<Tri> makeTriangles(){
         Collection<Tri> triangles = new ArrayList<>();
 
-        triangles.addAll(staticGeo.getTriangles());
         triangles.addAll(pyramid.getTriangles());
-
-        triangles.addAll(TriGen.rectangle(
-                Vec.o().x(75).y(50).z(75),
-                Vec.o().x(75).y(-50).z(50),
-                Axis.X
-        ));
-        triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().z(100), Color.RED) );
-        triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
-        triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
-
         triangles.addAll(TriGen.strip(
                 c[0],c[1],c[2],c[3]
         ));
