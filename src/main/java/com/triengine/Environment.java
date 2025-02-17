@@ -75,6 +75,17 @@ public class Environment extends JPanel {
                 c[0],c[1],c[2],c[3]
         ));
 
+        if(projector instanceof SimpleProjector sp){
+            for(Tri t : triangles){
+
+                if(t.contains(sp.svs.mousePos,projector)){
+                    t.col = Color.red;
+                    break;
+                }
+            }
+        }
+
+
         return triangles;
     }
 
@@ -125,9 +136,10 @@ public class Environment extends JPanel {
         */
     }
     void fillTriangle(CGraphics cg, Tri t){
+        Vec[] verts = {t.a,t.b,t.c};
+
         cg.setColor(t.col);
 
-        Vec[] verts = {t.a,t.b,t.c};
         cg.fillPolygon(verts);
         cg.drawPolygon(verts);
     }

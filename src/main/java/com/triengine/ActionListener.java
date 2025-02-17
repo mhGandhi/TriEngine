@@ -56,6 +56,10 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
     public void mouseMoved(MouseEvent e) {
         lastPos[0] = e.getX();
         lastPos[1] = e.getY();
+        viewState.mousePos[0] = e.getX();
+        viewState.mousePos[1] = e.getY();
+
+        app.repaint();
     }
 
     @Override

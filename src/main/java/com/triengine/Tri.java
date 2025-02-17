@@ -1,5 +1,7 @@
 package com.triengine;
 
+import com.triengine.projectors.Projector;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ public class Tri {
     public final Vec a;
     public final Vec b;
     public final Vec c;
-    public final Color col;
+    public Color col;
 
     public Tri(Vec a, Vec b, Vec c){
         this(a,b,c,Color.BLACK);
@@ -30,6 +32,41 @@ public class Tri {
     public Vec avgCoordinate(){
         return Vec.add(a,b,c).scale((double)1/3);
     }
+
+    // Method to calculate the sign of the cross product (helps determine the relative orientation)
+    private static int sign(int[] p, int[] v1, int[] v2) {
+        return (p[0] - v2[0]) * (v1[1] - v2[1]) - (v1[0] - v2[0]) * (p[1] - v2[1]);
+    }
+
+    public boolean contains(int[] pPoint, Projector projector) {
+
+        int[][] triPoints = {
+                projector.project(a),
+                projector.project(b),
+                projector.project(c)
+        };
+        return Tri.contains(pPoint,triPoints);
+    }
+    // Method to check if the point pPoint is inside the triangle formed by pTrianglePoints
+    public static boolean contains(int[] pPoint, int[][] pTrianglePoints) {
+        // Get the triangle vertices
+        int[] a = pTrianglePoints[0];
+        int[] b = pTrianglePoints[1];
+        int[] c = pTrianglePoints[2];
+
+        // Calculate the cross products
+        int d1 = sign(pPoint, a, b);
+        int d2 = sign(pPoint, b, c);
+        int d3 = sign(pPoint, c, a);
+
+        // Check if the point is inside the triangle (all signs should be the same)
+        boolean hasNeg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+        boolean hasPos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+        // The point is inside if all signs are consistent (either all positive or all negative)
+        return !(hasNeg && hasPos);
+    }
+
 
     public static Collection<Tri> t(Vec a, Vec b, Vec c){
         return Tri.t(a,b,c,Color.GRAY);
