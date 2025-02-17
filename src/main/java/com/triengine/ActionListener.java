@@ -26,22 +26,24 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
     public void mouseDragged(MouseEvent e) {
         if(viewState instanceof SimpleProjector.SimpleViewState svs){
             if(currentMB==2){
-                svs.angleZ += e.getX()- lastPos[0];
-                svs.angleY += e.getY()- lastPos[1];
+                svs.angleHorizontal += e.getX()- lastPos[0];
+                //svs.angleVertical += e.getY()- lastPos[1];
 
-                if(svs.angleY>359)svs.angleY-=360;
-                if(svs.angleY<0)svs.angleY+=360;
-                if(svs.angleZ>359)svs.angleZ-=360;
-                if(svs.angleZ<0)svs.angleZ+=360;//todo put into viewstate
+                if(svs.angleVertical >359)svs.angleVertical -=360;
+                if(svs.angleVertical <0)svs.angleVertical +=360;
+                if(svs.angleHorizontal >359)svs.angleHorizontal -=360;
+                if(svs.angleHorizontal <0)svs.angleHorizontal +=360;//todo put into viewstate
             }
             else if(currentMB==1){
                 svs.offSetY += e.getX()- lastPos[0];
-                svs.offSetX += e.getY()- lastPos[1];
+                //svs.offSetX += e.getY()- lastPos[1];
             }else if(currentMB==3){//todo temp for testt
                 app.elevateC(e.getY()- lastPos[1]);
             }
 
-            //System.out.println(svs.angleZ);
+            //System.out.println();
+            //System.out.println(svs.angleHorizontal);
+            //System.out.println(svs.offSetY);
         }
 
         lastPos[0] = e.getX();

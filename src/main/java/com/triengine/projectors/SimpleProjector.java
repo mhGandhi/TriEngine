@@ -1,10 +1,15 @@
 package com.triengine.projectors;
 
 import com.triengine.Axis;
+import com.triengine.Plane;
 import com.triengine.Vec;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class SimpleProjector extends Projector{
+
+    public static final double OFFSET_FOR_PROJECTION = (0.707 / 2);
+    public static final Vec VIEW_DIRECTION = Vec.v(1, OFFSET_FOR_PROJECTION, OFFSET_FOR_PROJECTION).normalize();
+
     public final SimpleViewState svs;
 
     public SimpleProjector() {
@@ -14,28 +19,33 @@ public class SimpleProjector extends Projector{
         this.svs = svs;
     }
 
+    /**
+     *
+     * @param pSysPos
+     * @return xPos on Screen, yPos on Screen, closeness to cam (depth)
+     */
     @Override
     public int[] project(Vec pSysPos) {
-        Vec centerOfView = Vec.v(svs.offSetX,svs.offSetY,svs.offSetZ);
-        pSysPos = Vec.add(pSysPos, centerOfView).scale(svs.scale);
+        Vec centerOfSystem = Vec.v(svs.offSetX,svs.offSetY+(svs.screenWidth/2d),svs.offSetZ-(svs.screenHeight/2d));
+        Vec centerOfRotation = Vec.add(centerOfSystem);
 
-        pSysPos = rotatePv(pSysPos, centerOfView, svs.angleX, Axis.X);
-        pSysPos = rotatePv(pSysPos, centerOfView, svs.angleY, Axis.Y);
-        pSysPos = rotatePv(pSysPos, centerOfView, svs.angleZ, Axis.Z);
+        pSysPos = Vec.add(pSysPos.scale(svs.scale), centerOfSystem);
+
+        pSysPos = rotatePv(pSysPos, centerOfRotation, svs.angleHorizontal, Axis.Z);
+        //pSysPos = rotatePv(pSysPos, centerOfSystem, svs.angleX, Axis.X);
+        pSysPos = rotatePv(pSysPos, centerOfRotation, svs.angleVertical, Axis.Y);
 
         int rX = 0;
         int rY = 0;
-        int rZ = 0;
-
         rX += (int)(pSysPos.y);
         rY -= (int)(pSysPos.z);
+        //3d magic
+        rX -= (int)(pSysPos.x * OFFSET_FOR_PROJECTION);
+        rY += (int)(pSysPos.x * OFFSET_FOR_PROJECTION);
 
-        rX -= (int)(pSysPos.x * (0.707/2));
-        rY += (int)(pSysPos.x * (0.707/2));
+        int rZ = 0;
 
-
-        Vec frontDir = Vec.v(1,(0.707/2),(0.707/2)).normalize();
-        rZ = (int)pSysPos.dot(frontDir);
+        rZ = (int)pSysPos.dot(VIEW_DIRECTION);
 
         return new int[] {rX,rY,rZ};
     }
@@ -96,12 +106,12 @@ public class SimpleProjector extends Projector{
 
     public static class SimpleViewState extends ViewState {
         //todo make everything private and use getset; setAngle(newangle,axis){bound it}; scale(change){converge}
-        public double angleX = 0;
-        public double angleY = 0;
-        public double angleZ = 0;
+        //public double angleX = 0;
+        public double angleVertical = 0;
+        public double angleHorizontal = 0;
 
-        public double offSetX = 600;
-        public double offSetY = 500;
+        public double offSetX = 0;
+        public double offSetY = 0;
         public double offSetZ = 0;
 
         public double scale = 1;

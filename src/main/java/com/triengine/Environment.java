@@ -4,6 +4,7 @@ import com.triengine.geometry.FileGeometry;
 import com.triengine.geometry.Geometry;
 import com.triengine.geometry.SimpleGeometry;
 import com.triengine.projectors.Projector;
+import com.triengine.projectors.SimpleProjector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,6 +58,11 @@ public class Environment extends JPanel {
         }
 
         drawTriangles(cg, makeTriangles());
+
+        if(projector instanceof SimpleProjector sp){
+            cg.setColor(Color.MAGENTA);
+
+        }
 
         //todo draw temp round plane indicators
     }
