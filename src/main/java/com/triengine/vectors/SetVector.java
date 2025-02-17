@@ -2,15 +2,15 @@ package com.triengine.vectors;
 
 import java.util.Objects;
 
-public class Vector extends Vec {
+public class SetVector extends Vec {
     public double x;
     public double y;
     public double z;
 
-    public Vector(){
+    public SetVector(){
         this(0d,0d,0d);
     }
-    public Vector(double pX, double pY, double pZ) {
+    public SetVector(double pX, double pY, double pZ) {
         this.x = pX;
         this.y = pY;
         this.z = pZ;
@@ -19,7 +19,7 @@ public class Vector extends Vec {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Vector vec)) return false;
+        if (!(o instanceof SetVector vec)) return false;
         return Double.compare(x, vec.x) == 0 && Double.compare(y, vec.y) == 0 && Double.compare(z, vec.z) == 0;
     }
 
@@ -55,15 +55,15 @@ public class Vector extends Vec {
         this.z = pZ;
     }
 
-    public Vector x(double pX){
+    public SetVector x(double pX){
         this.x = pX;
         return this;
     }
-    public Vector y(double pY){
+    public SetVector y(double pY){
         this.y = pY;
         return this;
     }
-    public Vector z(double pZ){
+    public SetVector z(double pZ){
         this.z = pZ;
         return this;
     }

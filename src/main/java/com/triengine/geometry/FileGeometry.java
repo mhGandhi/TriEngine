@@ -1,7 +1,7 @@
 package com.triengine.geometry;
 
 import com.triengine.Tri;
-import com.triengine.vectors.Vector;
+import com.triengine.vectors.SetVector;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class FileGeometry extends Geometry{
         System.out.println(System.getProperty("user.dir"));
         String path = System.getProperty("user.dir")+"/geometry/";
 
-        Map<String, Vector> points = new HashMap<>();
+        Map<String, SetVector> points = new HashMap<>();
         // Read points.txt
         try {
             List<String> lines = Files.readAllLines(Paths.get(path+pFileName+".points"));
@@ -41,7 +41,7 @@ public class FileGeometry extends Geometry{
                     double x = Double.parseDouble(parts[1]);
                     double y = Double.parseDouble(parts[2]);
                     double z = Double.parseDouble(parts[3]);
-                    points.put(name, new Vector(x, y, z));
+                    points.put(name, new SetVector(x, y, z));
                 }
             }
         } catch (IOException e) {
@@ -55,9 +55,9 @@ public class FileGeometry extends Geometry{
                 if(line.startsWith("#"))continue;
                 String[] parts = line.split(";");
                 if (parts.length >= 4) {
-                    Vector a = points.get(parts[0]);
-                    Vector b = points.get(parts[1]);
-                    Vector c = points.get(parts[2]);
+                    SetVector a = points.get(parts[0]);
+                    SetVector b = points.get(parts[1]);
+                    SetVector c = points.get(parts[2]);
 
                     String hexColor = parts[3].split(" ")[0]; // Parse hex color
                     Color color = Color.MAGENTA;

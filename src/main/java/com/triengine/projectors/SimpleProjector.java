@@ -2,13 +2,13 @@ package com.triengine.projectors;
 
 import com.triengine.Axis;
 import com.triengine.vectors.Vec;
-import com.triengine.vectors.Vector;
+import com.triengine.vectors.SetVector;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class SimpleProjector extends Projector{
 
     public static final double OFFSET_FOR_PROJECTION = (0.707 / 2);
-    public static final Vector VIEW_DIRECTION = Vector.v(1, OFFSET_FOR_PROJECTION, OFFSET_FOR_PROJECTION).normalize();
+    public static final SetVector VIEW_DIRECTION = SetVector.v(1, OFFSET_FOR_PROJECTION, OFFSET_FOR_PROJECTION).normalize();
 
 
     public SimpleProjector() {
@@ -25,10 +25,10 @@ public class SimpleProjector extends Projector{
      */
     @Override
     public int[] project(Vec pSysPos) {
-        Vector centerOfSystem = Vector.v(getSvs().offSetX,getSvs().offSetY+(getSvs().screenWidth/2d),getSvs().offSetZ-(getSvs().screenHeight/2d));
-        Vector centerOfRotation = Vector.add(centerOfSystem);
+        SetVector centerOfSystem = SetVector.v(getSvs().offSetX,getSvs().offSetY+(getSvs().screenWidth/2d),getSvs().offSetZ-(getSvs().screenHeight/2d));
+        SetVector centerOfRotation = SetVector.add(centerOfSystem);
 
-        pSysPos = Vector.add(pSysPos.scale(getSvs().scale), centerOfSystem);
+        pSysPos = SetVector.add(pSysPos.scale(getSvs().scale), centerOfSystem);
 
         pSysPos = rotatePv(pSysPos, centerOfRotation, getSvs().angleHorizontal, Axis.Z);
         //pSysPos = rotatePv(pSysPos, centerOfSystem, svs.angleX, Axis.X);
@@ -49,7 +49,7 @@ public class SimpleProjector extends Projector{
         return new int[] {rX,rY,rZ};
     }
 
-    private static Vector rotatePv(Vec point, Vec pivot, double pAngle, Axis pAxis) {
+    private static SetVector rotatePv(Vec point, Vec pivot, double pAngle, Axis pAxis) {
         double angleRadians = Math.toRadians(pAngle);
 
         // Translate point to origin relative to pivot
@@ -75,7 +75,7 @@ public class SimpleProjector extends Projector{
         }
 
         // Translate point back to original position relative to pivot
-        return new Vector(x + pivot.getX(), y + pivot.getY(), z + pivot.getZ());
+        return new SetVector(x + pivot.getX(), y + pivot.getY(), z + pivot.getZ());
     }
 
 

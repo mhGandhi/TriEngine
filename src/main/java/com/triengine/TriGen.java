@@ -1,15 +1,15 @@
 package com.triengine;
 
 import com.triengine.vectors.Vec;
-import com.triengine.vectors.Vector;
+import com.triengine.vectors.SetVector;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class TriGen {
-    public static Collection<Tri> rectangle(Vector p1, Vector p2, Axis pAxis){
-        Vector pi1 = Vector.o();
-        Vector pi2 = Vector.o();
+    public static Collection<Tri> rectangle(SetVector p1, SetVector p2, Axis pAxis){
+        SetVector pi1 = SetVector.o();
+        SetVector pi2 = SetVector.o();
         switch (pAxis){
             case X -> {
                 pi1.y(p1.y).z(p2.z).x(p1.x);
@@ -32,9 +32,9 @@ public class TriGen {
         ret.addAll(t2);
         return ret;
     }
-    public static Collection<Tri> strip(Vector p1, Vector p2, Axis pAxis){
-        Vector pi1 = Vector.o();
-        Vector pi2 = Vector.o();
+    public static Collection<Tri> strip(SetVector p1, SetVector p2, Axis pAxis){
+        SetVector pi1 = SetVector.o();
+        SetVector pi2 = SetVector.o();
         switch (pAxis){
             case X -> {
                 pi1.y(p1.y).z(p2.z).x(p1.x);
@@ -52,17 +52,17 @@ public class TriGen {
         return strip(p1,pi1,pi2,pi2);
     }
 
-    public static Collection<Tri> strip(Vector cornerA, Vector cornerB, Vector cornerC, Vector cornerD){
-        Vector p1 = cornerA;
-        Vector p2 = cornerC;
-        Vector pi1 = cornerB;
-        Vector pi2 = cornerD;
+    public static Collection<Tri> strip(SetVector cornerA, SetVector cornerB, SetVector cornerC, SetVector cornerD){
+        SetVector p1 = cornerA;
+        SetVector p2 = cornerC;
+        SetVector pi1 = cornerB;
+        SetVector pi2 = cornerD;
 
         Collection<Tri> triangles = new ArrayList<>();
 
 
-        Vector frontLeft = Vector.o();    Vector frontRight = Vector.o();
-        Vector backLeft = Vector.o();     Vector backRight = Vector.o();
+        SetVector frontLeft = SetVector.o();    SetVector frontRight = SetVector.o();
+        SetVector backLeft = SetVector.o();     SetVector backRight = SetVector.o();
         final int segmentCount;
         final double totalLen;
         {//assign corners
@@ -98,16 +98,16 @@ public class TriGen {
         final double segmentLen = totalLen/segmentCount;
         //System.out.println(totalLen+" seg "+segmentLen);
 
-        Vector direction = backLeft.subtract(frontLeft).normalize().scale(segmentLen);
+        SetVector direction = backLeft.subtract(frontLeft).normalize().scale(segmentLen);
 
-        Vector nextA = Vec.add(frontLeft,direction);
-        Vector nextB = frontRight;
-        Vector nextC = frontLeft;
+        SetVector nextA = Vec.add(frontLeft,direction);
+        SetVector nextB = frontRight;
+        SetVector nextC = frontLeft;
 
         double currentLen = 0;
         while(currentLen<totalLen){
-            Vector a=nextA,b=nextB,c=nextC;
-            Vector[] t = {a,b,c};
+            SetVector a=nextA,b=nextB,c=nextC;
+            SetVector[] t = {a,b,c};
             currentLen+=segmentLen/2;
             if(currentLen>=totalLen-segmentLen/2){
                 t[0] = backLeft;
@@ -118,7 +118,7 @@ public class TriGen {
             }
             triangles.addAll(Tri.t(t[0],t[1],t[2]));
 
-            nextA = Vector.add(b,direction);
+            nextA = SetVector.add(b,direction);
             nextB = a;
             nextC = b;
         }

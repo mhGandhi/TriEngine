@@ -2,7 +2,7 @@ package com.triengine;
 
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
-import com.triengine.vectors.Vector;
+import com.triengine.vectors.SetVector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class App {
     }
 
     public void elevateC(int elev) {
-        for(Vector v : env.c){
+        for(SetVector v : env.c){
             v.z-=elev;
         }
         env.repaint();

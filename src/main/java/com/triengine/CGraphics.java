@@ -2,7 +2,7 @@ package com.triengine;
 
 import com.triengine.projectors.Projector;
 import com.triengine.vectors.Vec;
-import com.triengine.vectors.Vector;
+import com.triengine.vectors.SetVector;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -68,7 +68,7 @@ public class CGraphics extends Graphics2D{
     public void drawVector(Vec pOA, Vec pOff){
         //int[] off = onScreen(Vec.add(oo,pOff));
         int[] off = onScreen(pOff);
-        int[] a = onScreen(Vector.add(pOA,pOff));
+        int[] a = onScreen(SetVector.add(pOA,pOff));
         if(off==null||a==null)return;
 
         drawLine(off[0], off[1], a[0], a[1]);
@@ -96,9 +96,9 @@ public class CGraphics extends Graphics2D{
     }
     public void drawStraight(Vec pDir, Vec off){
         //todo change
-        Vec oa = Vector.add(off,pDir.scale(10).inv());
-        Vec ob = Vector.add(off,pDir.scale(10));
-        Vec ab = Vector.add(ob,oa.inv());
+        Vec oa = SetVector.add(off,pDir.scale(10).inv());
+        Vec ob = SetVector.add(off,pDir.scale(10));
+        Vec ab = SetVector.add(ob,oa.inv());
 
         drawPoint(oa);
         drawPoint(ob);
@@ -108,24 +108,24 @@ public class CGraphics extends Graphics2D{
 
     public void drawPlane(Vec e1, Vec e2, Vec off) {
         //todo scale
-        Vec off1 = Vector.add(off,e2.inv().scale(5));
+        Vec off1 = SetVector.add(off,e2.inv().scale(5));
         for (int i = 0; i < 10; i++) {
             drawStraight(e1,off1);
-            off1 = Vector.add(off1,e2);
+            off1 = SetVector.add(off1,e2);
         }
 
-        Vec off2 = Vector.add(off,e1.inv().scale(5));
+        Vec off2 = SetVector.add(off,e1.inv().scale(5));
         for (int i = 0; i < 10; i++) {
             drawStraight(e2,off2);
-            off2 = Vector.add(off2,e1);
+            off2 = SetVector.add(off2,e1);
         }
     }
     public void fillPlane(Vec e1, Vec e2, Vec off) {
         //todo scale
         int[] p1 = onScreen(off);
-        int[] p2 = onScreen(Vector.add(off, e1));
-        int[] p3 = onScreen(Vector.add(off, Vector.add(e1, e2)));
-        int[] p4 = onScreen(Vector.add(off, e2));
+        int[] p2 = onScreen(SetVector.add(off, e1));
+        int[] p3 = onScreen(SetVector.add(off, SetVector.add(e1, e2)));
+        int[] p4 = onScreen(SetVector.add(off, e2));
 
         int[] xPoints = {p1[0], p2[0], p3[0], p4[0]};
         int[] yPoints = {p1[1], p2[1], p3[1], p4[1]};

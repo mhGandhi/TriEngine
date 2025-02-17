@@ -2,7 +2,7 @@ package com.triengine;
 
 import com.triengine.projectors.Projector;
 import com.triengine.vectors.Vec;
-import com.triengine.vectors.Vector;
+import com.triengine.vectors.SetVector;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Tri {
         this.col = pCol;
     }
 
-    public Vector avgCoordinate(){
+    public SetVector avgCoordinate(){
         return Vec.add(a,b,c).scale((double)1/3);
     }
 
@@ -93,7 +93,7 @@ public class Tri {
 
 
         if(ab>=bc&&ab>=ca&&ab>pMaxSideLen){
-            Vector mab = Vec.add(a,b).scale(0.5d);
+            SetVector mab = Vec.add(a,b).scale(0.5d);
 
             ret.addAll(Tri.t(c,mab,a,pMaxSideLen,pColor,pRecDepth));
             ret.addAll(Tri.t(c,mab,b,pMaxSideLen,pColor,pRecDepth));
@@ -101,7 +101,7 @@ public class Tri {
             return ret;
         }
         if(bc>ca&&bc>=ab&&bc>pMaxSideLen){
-            Vector mbc = Vec.add(b,c).scale(0.5d);
+            SetVector mbc = Vec.add(b,c).scale(0.5d);
 
             ret.addAll(Tri.t(a,mbc,b,pMaxSideLen,pColor,pRecDepth));
             ret.addAll(Tri.t(a,mbc,c,pMaxSideLen,pColor,pRecDepth));
@@ -109,7 +109,7 @@ public class Tri {
             return ret;
         }
         if(ca>pMaxSideLen){
-            Vector mca = Vec.add(c,a).scale(0.5d);
+            SetVector mca = Vec.add(c,a).scale(0.5d);
 
             ret.addAll(Tri.t(b,mca,c,pMaxSideLen,pColor,pRecDepth));
             ret.addAll(Tri.t(b,mca,a,pMaxSideLen,pColor,pRecDepth));
