@@ -2,6 +2,7 @@ package com.triengine.geometry;
 
 import com.triengine.Tri;
 import com.triengine.vectors.SetVector;
+import com.triengine.vectors.Vec;
 
 import java.awt.*;
 import java.io.IOException;
@@ -9,12 +10,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
+import java.util.function.Function;
 
 public class FileGeometry extends Geometry{
     private Collection<Tri> triangles;
 
+    public FileGeometry(String pFileName, Function<String, Vec> pMates){
+        this.triangles = fromFiles(pFileName,pMates);
+    }
     public FileGeometry(String pFileName){
-        this.triangles = fromFiles(pFileName);
+        this(pFileName, s->Vec.o() );
     }
 
     @Override
@@ -24,7 +29,7 @@ public class FileGeometry extends Geometry{
 
 
 
-    Collection<Tri> fromFiles(String pFileName){
+    Collection<Tri> fromFiles(String pFileName, Function<String, Vec> pMates){
         List<Tri> ret = new ArrayList<>();
         System.out.println(System.getProperty("user.dir"));
         String path = System.getProperty("user.dir")+"/geometry/";
