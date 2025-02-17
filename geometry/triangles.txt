@@ -1,6 +1,6 @@
 #Floor
-BaseFrontLeft;BaseFrontRight;BaseBackLeft;#FFFFFF
-BaseFrontRight;BaseBackRight;BaseBackLeft;#FFFFFF
+BaseFrontLeft;BaseFrontRight;BaseBackLeft;#D3D3D3
+BaseFrontRight;BaseBackRight;BaseBackLeft;#D3D3D3
 
 #sideA
 BaseFrontLeft;GrayFrontLeft;BaseFrontRight;#D3D3D3
