@@ -2,14 +2,16 @@ package com.triengine.projectors;
 
 import com.triengine.Plane;
 import com.triengine.Vec;
+import com.triengine.projectors.viewstates.ViewState;
 
 public class OrthogonalProjector extends Projector{
     private final Plane perspective;
 
-    public OrthogonalProjector() {
-        this(Plane.XY);
+    public OrthogonalProjector(ViewState pvs) {
+        this(Plane.XY,pvs);
     }
-    public OrthogonalProjector(Plane perspective) {
+    public OrthogonalProjector(Plane perspective, ViewState pvs) {
+        super(pvs);
         this.perspective = perspective;
     }
 
