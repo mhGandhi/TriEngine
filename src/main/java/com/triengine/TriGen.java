@@ -3,6 +3,7 @@ package com.triengine;
 import com.triengine.vectors.Vec;
 import com.triengine.vectors.SetVector;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,6 +28,15 @@ public class TriGen {
 
         Collection<Tri> t1 = Tri.t(p1,pi1,pi2);
         Collection<Tri> t2 = Tri.t(p2,pi1,pi2);
+
+        ArrayList<Tri> ret = new ArrayList<>(t1);
+        ret.addAll(t2);
+        return ret;
+    }
+    public static Collection<Tri> rectangle(SetVector A, SetVector B, SetVector C, SetVector D){
+
+        Collection<Tri> t1 = Tri.t(A,B,C);
+        Collection<Tri> t2 = Tri.t(A,C,D);
 
         ArrayList<Tri> ret = new ArrayList<>(t1);
         ret.addAll(t2);
