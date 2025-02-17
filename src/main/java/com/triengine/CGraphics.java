@@ -1,7 +1,6 @@
 package com.triengine;
 
 import com.triengine.projectors.Projector;
-import com.triengine.projectors.SimpleProjector;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -18,6 +17,7 @@ import java.util.Map;
 
 /**
  * wrapper hihi
+ * todo muss ka wrapper sein eig, kann einf G2d nutzen
  */
 public class CGraphics extends Graphics2D{
     private final Graphics2D wrapped;
@@ -26,6 +26,15 @@ public class CGraphics extends Graphics2D{
     public CGraphics(Graphics2D wrapped, Projector pProjector) {
         this.wrapped = wrapped;
         this.projector = pProjector;
+    }
+
+    private int[] onScreen(Vec pSysPos){
+        int[] ret = projector.project(pSysPos);
+        if(ret==null)return null;
+        //ret[0] += 500;
+        //ret[1] += 250;
+
+        return ret;
     }
 
      void drawPolygon(Vec[] pVertices){
@@ -54,21 +63,15 @@ public class CGraphics extends Graphics2D{
         fillPolygon(xPoints,yPoints,n);
     }
 
-    public void drawVector(Vec pOA){
-        int[] a = onScreen(pOA);
-        int[] o = onScreen(Vec.o());
-        if(a==null||o==null)return;
-
-        drawLine(o[0], o[1], a[0], a[1]);
-    }
     public void drawVector(Vec pOA, Vec pOff){
         //int[] off = onScreen(Vec.add(oo,pOff));
         int[] off = onScreen(pOff);
-        int[] a = onScreen(Vec.add(pOA,pOff));
+        int[] a = onScreen(Vector.add(pOA,pOff));
         if(off==null||a==null)return;
 
         drawLine(off[0], off[1], a[0], a[1]);
     }
+
     public void drawPoint(Vec pPt){
         int[] p = onScreen(pPt);
         if(p==null)return;
@@ -84,41 +87,16 @@ public class CGraphics extends Graphics2D{
     }
 
 
-    public void drawPlane(Vec e1, Vec e2, Vec off) {
-        //todo scale
-        Vec off1 = Vec.add(off,e2.inv().scale(5));
-        for (int i = 0; i < 10; i++) {
-            drawStraight(e1,off1);
-            off1 = Vec.add(off1,e2);
-        }
 
-        Vec off2 = Vec.add(off,e1.inv().scale(5));
-        for (int i = 0; i < 10; i++) {
-            drawStraight(e2,off2);
-            off2 = Vec.add(off2,e1);
-        }
-    }
-    public void fillPlane(Vec e1, Vec e2, Vec off) {
-        //todo scale
-        int[] p1 = onScreen(off);
-        int[] p2 = onScreen(Vec.add(off, e1));
-        int[] p3 = onScreen(Vec.add(off, Vec.add(e1, e2)));
-        int[] p4 = onScreen(Vec.add(off, e2));
-
-        int[] xPoints = {p1[0], p2[0], p3[0], p4[0]};
-        int[] yPoints = {p1[1], p2[1], p3[1], p4[1]};
-
-        wrapped.fillPolygon(xPoints, yPoints, 4);
-    }
 
     public void drawStraight(Vec pDir){
         drawStraight(pDir, Vec.o());
     }
     public void drawStraight(Vec pDir, Vec off){
         //todo change
-        Vec oa = Vec.add(off,pDir.scale(10).inv());
-        Vec ob = Vec.add(off,pDir.scale(10));
-        Vec ab = Vec.add(ob,oa.inv());
+        Vec oa = Vector.add(off,pDir.scale(10).inv());
+        Vec ob = Vector.add(off,pDir.scale(10));
+        Vec ab = Vector.add(ob,oa.inv());
 
         drawPoint(oa);
         drawPoint(ob);
@@ -126,13 +104,31 @@ public class CGraphics extends Graphics2D{
         drawVector(ab,oa);
     }
 
-    private int[] onScreen(Vec pSysPos){
-        int[] ret = projector.project(pSysPos);
-        if(ret==null)return null;
-        //ret[0] += 500;
-        //ret[1] += 250;
+    public void drawPlane(Vec e1, Vec e2, Vec off) {
+        //todo scale
+        Vec off1 = Vector.add(off,e2.inv().scale(5));
+        for (int i = 0; i < 10; i++) {
+            drawStraight(e1,off1);
+            off1 = Vector.add(off1,e2);
+        }
 
-        return ret;
+        Vec off2 = Vector.add(off,e1.inv().scale(5));
+        for (int i = 0; i < 10; i++) {
+            drawStraight(e2,off2);
+            off2 = Vector.add(off2,e1);
+        }
+    }
+    public void fillPlane(Vec e1, Vec e2, Vec off) {
+        //todo scale
+        int[] p1 = onScreen(off);
+        int[] p2 = onScreen(Vector.add(off, e1));
+        int[] p3 = onScreen(Vector.add(off, Vector.add(e1, e2)));
+        int[] p4 = onScreen(Vector.add(off, e2));
+
+        int[] xPoints = {p1[0], p2[0], p3[0], p4[0]};
+        int[] yPoints = {p1[1], p2[1], p3[1], p4[1]};
+
+        wrapped.fillPolygon(xPoints, yPoints, 4);
     }
 
     /////////////////////////////////////////////////DELEGATE METHODS

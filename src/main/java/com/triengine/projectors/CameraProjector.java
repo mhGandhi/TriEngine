@@ -1,6 +1,7 @@
 package com.triengine.projectors;
 
 import com.triengine.Vec;
+import com.triengine.Vector;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class CameraProjector extends Projector {

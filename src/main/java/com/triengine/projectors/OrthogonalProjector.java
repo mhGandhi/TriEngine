@@ -2,6 +2,7 @@ package com.triengine.projectors;
 
 import com.triengine.Plane;
 import com.triengine.Vec;
+import com.triengine.Vector;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class OrthogonalProjector extends Projector{
@@ -22,16 +23,16 @@ public class OrthogonalProjector extends Projector{
 
         switch (perspective){
             case XY -> {
-                return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.y+sOfY),   (int)pSysPos.z};
+                return new int[] {(int)(pSysPos.getX()+sOfX), (int)(pSysPos.getY()+sOfY),   (int)pSysPos.getZ()};
             }
             case YZ -> {
-                return new int[] {(int)(pSysPos.y+sOfX), (int)(pSysPos.z*-1+sOfY),   (int)pSysPos.x};
+                return new int[] {(int)(pSysPos.getY()+sOfX), (int)(pSysPos.getZ()*-1+sOfY),   (int)pSysPos.getX()};
             }
             case XZ -> {
-                return new int[] {(int)(pSysPos.x+sOfX), (int)(pSysPos.z*-1+sOfY),   (int)pSysPos.y};
+                return new int[] {(int)(pSysPos.getX()+sOfX), (int)(pSysPos.getZ()*-1+sOfY),   (int)pSysPos.getY()};
             }
         }
         System.err.println("Invalid Plane, reverting to XY");
-        return new int[] {(int)pSysPos.x, (int)pSysPos.y, (int)pSysPos.z};
+        return new int[] {(int)pSysPos.getX(), (int)pSysPos.getY(), (int)pSysPos.getZ()};
     }
 }

@@ -2,12 +2,13 @@ package com.triengine.projectors;
 
 import com.triengine.Axis;
 import com.triengine.Vec;
+import com.triengine.Vector;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class SimpleProjector extends Projector{
 
     public static final double OFFSET_FOR_PROJECTION = (0.707 / 2);
-    public static final Vec VIEW_DIRECTION = Vec.v(1, OFFSET_FOR_PROJECTION, OFFSET_FOR_PROJECTION).normalize();
+    public static final Vector VIEW_DIRECTION = Vector.v(1, OFFSET_FOR_PROJECTION, OFFSET_FOR_PROJECTION).normalize();
 
 
     public SimpleProjector() {
@@ -24,10 +25,10 @@ public class SimpleProjector extends Projector{
      */
     @Override
     public int[] project(Vec pSysPos) {
-        Vec centerOfSystem = Vec.v(getSvs().offSetX,getSvs().offSetY+(getSvs().screenWidth/2d),getSvs().offSetZ-(getSvs().screenHeight/2d));
-        Vec centerOfRotation = Vec.add(centerOfSystem);
+        Vector centerOfSystem = Vector.v(getSvs().offSetX,getSvs().offSetY+(getSvs().screenWidth/2d),getSvs().offSetZ-(getSvs().screenHeight/2d));
+        Vector centerOfRotation = Vector.add(centerOfSystem);
 
-        pSysPos = Vec.add(pSysPos.scale(getSvs().scale), centerOfSystem);
+        pSysPos = Vector.add(pSysPos.scale(getSvs().scale), centerOfSystem);
 
         pSysPos = rotatePv(pSysPos, centerOfRotation, getSvs().angleHorizontal, Axis.Z);
         //pSysPos = rotatePv(pSysPos, centerOfSystem, svs.angleX, Axis.X);
@@ -35,11 +36,11 @@ public class SimpleProjector extends Projector{
 
         int rX = 0;
         int rY = 0;
-        rX += (int)(pSysPos.y);
-        rY -= (int)(pSysPos.z);
+        rX += (int)(pSysPos.getY());
+        rY -= (int)(pSysPos.getZ());
         //3d magic
-        rX -= (int)(pSysPos.x * OFFSET_FOR_PROJECTION);
-        rY += (int)(pSysPos.x * OFFSET_FOR_PROJECTION);
+        rX -= (int)(pSysPos.getX() * OFFSET_FOR_PROJECTION);
+        rY += (int)(pSysPos.getX() * OFFSET_FOR_PROJECTION);
 
         int rZ = 0;
 
@@ -48,37 +49,13 @@ public class SimpleProjector extends Projector{
         return new int[] {rX,rY,rZ};
     }
 
-    private static Vec rotate(Vec point, double pAngle, Axis pAxis){
-        double angleRadians = Math.toRadians(pAngle);
-        switch (pAxis){
-            case X -> {
-                double y = point.y * Math.cos(angleRadians) - point.z * Math.sin(angleRadians);
-                double z = point.y * Math.sin(angleRadians) + point.z * Math.cos(angleRadians);
-                return new Vec(point.x, y, z);
-            }
-            case Y -> {
-                double x = point.x * Math.cos(angleRadians) + point.z * Math.sin(angleRadians);
-                double z = -point.x * Math.sin(angleRadians) + point.z * Math.cos(angleRadians);
-                return new Vec(x, point.y, z);
-            }
-            case Z -> {
-                double x = point.x * Math.cos(angleRadians) - point.y * Math.sin(angleRadians);
-                double y = point.x * Math.sin(angleRadians) + point.y * Math.cos(angleRadians);
-                return new Vec(x, y, point.z);
-            }
-        }
-
-        System.err.println("Invalid Axis, reverting to nullvector");
-        return Vec.o();
-    }
-
-    private static Vec rotatePv(Vec point, Vec pivot, double pAngle, Axis pAxis) {
+    private static Vector rotatePv(Vec point, Vec pivot, double pAngle, Axis pAxis) {
         double angleRadians = Math.toRadians(pAngle);
 
         // Translate point to origin relative to pivot
-        double px = point.x - pivot.x;
-        double py = point.y - pivot.y;
-        double pz = point.z - pivot.z;
+        double px = point.getX() - pivot.getX();
+        double py = point.getY() - pivot.getY();
+        double pz = point.getZ() - pivot.getZ();
 
         double x = px, y = py, z = pz;
 
@@ -98,7 +75,7 @@ public class SimpleProjector extends Projector{
         }
 
         // Translate point back to original position relative to pivot
-        return new Vec(x + pivot.x, y + pivot.y, z + pivot.z);
+        return new Vector(x + pivot.getX(), y + pivot.getY(), z + pivot.getZ());
     }
 
 

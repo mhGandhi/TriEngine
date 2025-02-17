@@ -14,11 +14,11 @@ public class Environment extends JPanel {
     Projector projector;
 
     Geometry pyramid;
-    Vec[] c = {
-            Vec.v(500,-100,-10),
-            Vec.v(500,100,-10),
-            Vec.v(-500,100,-10),
-            Vec.v(-500,-100,-10)
+    Vector[] c = {
+            Vector.v(500,-100,-10),
+            Vector.v(500,100,-10),
+            Vector.v(-500,100,-10),
+            Vector.v(-500,-100,-10)
     };
 
     public Environment(ActionHandler pAc, Projector p){
@@ -42,13 +42,13 @@ public class Environment extends JPanel {
         CGraphics cg = new CGraphics(g2d, projector);
 
         {//draw bg geometry
-            Vec e1 = Vec.o().x(1000);
+            Vector e1 = Vector.o().x(1000);
             cg.setColor(Color.red);
             cg.drawStraight(e1);
-            Vec e2 = Vec.o().y(1000);
+            Vector e2 = Vector.o().y(1000);
             cg.setColor(Color.green);
             cg.drawStraight(e2);
-            Vec e3 = Vec.o().z(1000);
+            Vector e3 = Vector.o().z(1000);
             cg.setColor(Color.blue);
             cg.drawStraight(e3);
         }
@@ -71,8 +71,8 @@ public class Environment extends JPanel {
                 c[0],c[1],c[2],c[3]
         ));
         triangles.addAll(TriGen.rectangle(
-                Vec.v(150,50,150),
-                Vec.v(50,150,150),
+                Vector.v(150,50,150),
+                Vector.v(50,150,150),
                 Axis.Z
         ));
 
@@ -125,7 +125,7 @@ public class Environment extends JPanel {
     void debugTriangle(CGraphics cg, Tri t, int i){
         Vec[] verts = {t.a,t.b,t.c};
         cg.drawPolygon(verts);
-        Vec center = t.avgCoordinate();
+        Vector center = t.avgCoordinate();
         cg.drawPoint(center);
         cg.drawString(center,i<10?i+"":"#");
         /*

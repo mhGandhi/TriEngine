@@ -4,7 +4,6 @@ import com.triengine.projectors.Projector;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,11 +24,7 @@ public class Tri {
         this.col = pCol;
     }
 
-    public static Collection<Tri> t(Vec a, Vec b, Vec c, Color color) {
-        return Tri.t(a,b,c,25d, color);
-    }
-
-    public Vec avgCoordinate(){
+    public Vector avgCoordinate(){
         return Vec.add(a,b,c).scale((double)1/3);
     }
 
@@ -67,6 +62,9 @@ public class Tri {
         return !(hasNeg && hasPos);
     }
 
+    public static Collection<Tri> t(Vec a, Vec b, Vec c, Color color) {
+        return Tri.t(a,b,c,25d, color);
+    }
 
     public static Collection<Tri> t(Vec a, Vec b, Vec c){
         return Tri.t(a,b,c,Color.GRAY);
@@ -93,7 +91,7 @@ public class Tri {
 
 
         if(ab>=bc&&ab>=ca&&ab>pMaxSideLen){
-            Vec mab = Vec.add(a,b).scale(0.5d);
+            Vector mab = Vec.add(a,b).scale(0.5d);
 
             ret.addAll(Tri.t(c,mab,a,pMaxSideLen,pColor,pRecDepth));
             ret.addAll(Tri.t(c,mab,b,pMaxSideLen,pColor,pRecDepth));
@@ -101,7 +99,7 @@ public class Tri {
             return ret;
         }
         if(bc>ca&&bc>=ab&&bc>pMaxSideLen){
-            Vec mbc = Vec.add(b,c).scale(0.5d);
+            Vector mbc = Vec.add(b,c).scale(0.5d);
 
             ret.addAll(Tri.t(a,mbc,b,pMaxSideLen,pColor,pRecDepth));
             ret.addAll(Tri.t(a,mbc,c,pMaxSideLen,pColor,pRecDepth));
@@ -109,7 +107,7 @@ public class Tri {
             return ret;
         }
         if(ca>pMaxSideLen){
-            Vec mca = Vec.add(c,a).scale(0.5d);
+            Vector mca = Vec.add(c,a).scale(0.5d);
 
             ret.addAll(Tri.t(b,mca,c,pMaxSideLen,pColor,pRecDepth));
             ret.addAll(Tri.t(b,mca,a,pMaxSideLen,pColor,pRecDepth));

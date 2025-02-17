@@ -2,12 +2,11 @@ package com.triengine;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class TriGen {
-    public static Collection<Tri> rectangle(Vec p1, Vec p2, Axis pAxis){
-        Vec pi1 = Vec.o();
-        Vec pi2 = Vec.o();
+    public static Collection<Tri> rectangle(Vector p1, Vector p2, Axis pAxis){
+        Vector pi1 = Vector.o();
+        Vector pi2 = Vector.o();
         switch (pAxis){
             case X -> {
                 pi1.y(p1.y).z(p2.z).x(p1.x);
@@ -30,9 +29,9 @@ public class TriGen {
         ret.addAll(t2);
         return ret;
     }
-    public static Collection<Tri> strip(Vec p1, Vec p2, Axis pAxis){
-        Vec pi1 = Vec.o();
-        Vec pi2 = Vec.o();
+    public static Collection<Tri> strip(Vector p1, Vector p2, Axis pAxis){
+        Vector pi1 = Vector.o();
+        Vector pi2 = Vector.o();
         switch (pAxis){
             case X -> {
                 pi1.y(p1.y).z(p2.z).x(p1.x);
@@ -50,17 +49,17 @@ public class TriGen {
         return strip(p1,pi1,pi2,pi2);
     }
 
-    public static Collection<Tri> strip(Vec cornerA, Vec cornerB, Vec cornerC, Vec cornerD){
-        Vec p1 = cornerA;
-        Vec p2 = cornerC;
-        Vec pi1 = cornerB;
-        Vec pi2 = cornerD;
+    public static Collection<Tri> strip(Vector cornerA, Vector cornerB, Vector cornerC, Vector cornerD){
+        Vector p1 = cornerA;
+        Vector p2 = cornerC;
+        Vector pi1 = cornerB;
+        Vector pi2 = cornerD;
 
         Collection<Tri> triangles = new ArrayList<>();
 
 
-        Vec frontLeft = Vec.o();    Vec frontRight = Vec.o();
-        Vec backLeft = Vec.o();     Vec backRight = Vec.o();
+        Vector frontLeft = Vector.o();    Vector frontRight = Vector.o();
+        Vector backLeft = Vector.o();     Vector backRight = Vector.o();
         final int segmentCount;
         final double totalLen;
         {//assign corners
@@ -96,16 +95,16 @@ public class TriGen {
         final double segmentLen = totalLen/segmentCount;
         //System.out.println(totalLen+" seg "+segmentLen);
 
-        Vec direction = backLeft.subtract(frontLeft).normalize().scale(segmentLen);
+        Vector direction = backLeft.subtract(frontLeft).normalize().scale(segmentLen);
 
-        Vec nextA = Vec.add(frontLeft,direction);
-        Vec nextB = frontRight;
-        Vec nextC = frontLeft;
+        Vector nextA = Vec.add(frontLeft,direction);
+        Vector nextB = frontRight;
+        Vector nextC = frontLeft;
 
         double currentLen = 0;
         while(currentLen<totalLen){
-            Vec a=nextA,b=nextB,c=nextC;
-            Vec[] t = {a,b,c};
+            Vector a=nextA,b=nextB,c=nextC;
+            Vector[] t = {a,b,c};
             currentLen+=segmentLen/2;
             if(currentLen>=totalLen-segmentLen/2){
                 t[0] = backLeft;
@@ -116,7 +115,7 @@ public class TriGen {
             }
             triangles.addAll(Tri.t(t[0],t[1],t[2]));
 
-            nextA = Vec.add(b,direction);
+            nextA = Vector.add(b,direction);
             nextB = a;
             nextC = b;
         }

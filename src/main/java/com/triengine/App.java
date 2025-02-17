@@ -1,7 +1,5 @@
 package com.triengine;
 
-import com.triengine.projectors.CameraProjector;
-import com.triengine.projectors.OrthogonalProjector;
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
 
@@ -39,7 +37,7 @@ public class App {
     }
 
     public void elevateC(int elev) {
-        for(Vec v : env.c){
+        for(Vector v : env.c){
             v.z-=elev;
         }
         env.repaint();
