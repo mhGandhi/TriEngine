@@ -2,15 +2,11 @@ package com.triengine;
 
 import com.triengine.geometry.FileGeometry;
 import com.triengine.geometry.Geometry;
-import com.triengine.geometry.SimpleGeometry;
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
@@ -25,7 +21,7 @@ public class Environment extends JPanel {
             Vec.v(-500,-100,-10)
     };
 
-    public Environment(ActionListener pAc, Projector p){
+    public Environment(ActionHandler pAc, Projector p){
         this.projector = p;
         {
             setBackground(Color.white);
@@ -67,32 +63,13 @@ public class Environment extends JPanel {
         //todo draw temp round plane indicators
     }
 
-    private Collection<Tri> makeTriangles(){
-        Collection<Tri> triangles = new ArrayList<>();
+    private List<Tri> makeTriangles(){
+        List<Tri> triangles = new ArrayList<>();
 
         triangles.addAll(pyramid.getTriangles());
         triangles.addAll(TriGen.strip(
                 c[0],c[1],c[2],c[3]
         ));
-
-        if(projector instanceof SimpleProjector sp){
-            for(Tri t : triangles){
-
-                if(t.contains(sp.svs.mousePos,projector)){
-                    t.col = Color.red;
-                    break;
-                }
-            }
-        }
-
-
-        return triangles;
-    }
-
-    private void drawTriangles(CGraphics cg, Collection<Tri> pTriangles) {
-        List<Tri> triangles = new ArrayList<>(pTriangles);
-
-        //System.out.println("drawing "+triangles.size()+" triangles");
 
         {//sort
             try {
@@ -101,6 +78,24 @@ public class Environment extends JPanel {
                 e.printStackTrace();
             }
         }
+
+        if(projector instanceof SimpleProjector sp){
+            for(int i = triangles.size()-1; i>0; i--){
+                Tri t = triangles.get(i);
+                if(t.contains(sp.svs.mousePos,projector)){
+                    t.col = Color.red;
+                    break;
+                }
+            }
+        }
+
+        return triangles;
+    }
+
+    private void drawTriangles(CGraphics cg, List<Tri> pTriangles) {
+        List<Tri> triangles = new ArrayList<>(pTriangles);
+
+        //System.out.println("drawing "+triangles.size()+" triangles");
 
         {//draw
             int i = 0;

@@ -5,16 +5,20 @@ import com.triengine.projectors.viewstates.ViewState;
 
 import java.awt.event.*;
 
-public class ActionListener implements MouseMotionListener, ComponentListener, MouseListener, MouseWheelListener {
+public class ActionHandler implements MouseMotionListener, ComponentListener, MouseListener, MouseWheelListener, ActionListener {
     private final ViewState viewState;
     private final App app;
 
-    public ActionListener(App pApp, ViewState viewState) {
+    public ActionHandler(App pApp, ViewState viewState) {
         this.app = pApp;
         this.viewState = viewState;
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
     int currentMB = 0;
     @Override
     public void mousePressed(MouseEvent e) {
@@ -48,6 +52,8 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
 
         lastPos[0] = e.getX();
         lastPos[1] = e.getY();
+        viewState.mousePos[0] = e.getX();
+        viewState.mousePos[1] = e.getY();
 
         app.repaint();
     }

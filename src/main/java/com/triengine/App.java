@@ -1,8 +1,6 @@
 package com.triengine;
 
-import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
-import com.triengine.projectors.viewstates.ViewState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +10,7 @@ public class App {
 
     public App(){
         SimpleProjector projector = new SimpleProjector();
-        ActionListener actionListener = new ActionListener(this, projector.svs);
+        ActionHandler actionListener = new ActionHandler(this, projector.svs);
 
 
         env = new Environment(actionListener, projector);
