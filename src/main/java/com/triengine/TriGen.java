@@ -14,12 +14,12 @@ public class TriGen {
                 pi2.y(p2.y).z(p1.z).x(p1.x);
             }
             case Y -> {
-                pi1.x(p1.x).z(p2.z).x(p1.x);
-                pi2.x(p2.x).z(p1.z).x(p1.x);
+                pi1.x(p1.x).z(p2.z).y(p1.y);
+                pi2.x(p2.x).z(p1.z).y(p1.y);
             }
             case Z -> {
-                pi1.y(p1.y).x(p2.x).x(p1.x);
-                pi2.y(p2.y).x(p1.x).x(p1.x);
+                pi1.y(p1.y).x(p2.x).z(p1.z);
+                pi2.y(p2.y).x(p1.x).z(p1.z);
             }
         }
 
