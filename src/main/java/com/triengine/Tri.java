@@ -73,15 +73,15 @@ public class Tri {
     }
 
     public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, double pMaxSideLen){
-        return Tri.t(a,b,c,pMaxSideLen,Color.GRAY,0);
+        return Tri.t(a,b,c,pMaxSideLen,Color.GRAY,9);
     }
     public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, double pMaxSideLen, Color pColor){
-        return Tri.t(a,b,c,pMaxSideLen,pColor,0);
+        return Tri.t(a,b,c,pMaxSideLen,pColor,9);
     }
 
     public static Collection<Tri> t(SetVector a, SetVector b, SetVector c, double pMaxSideLen, Color pColor, int pRecDepth){
-        pRecDepth++;
-        if(pRecDepth>=9){
+        pRecDepth--;
+        if(pRecDepth<=0){
             return List.of(new Tri(a,b,c,pColor));
         }
 
