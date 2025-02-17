@@ -14,6 +14,10 @@ public class Environment extends JPanel {
     final Projector projector;
     List<Tri> triangles;
 
+    Vec[] c = {Vec.o().x(100).y(-100).z(-10),
+            Vec.o().x(100).y(100).z(-10),
+            Vec.o().x(-100).y(100).z(-10),
+            Vec.o().x(-100).y(-100).z(-10)};
     public Environment(ActionListener pAc, Projector p){
         this.projector = p;
         triangles = new ArrayList<>();
@@ -25,7 +29,7 @@ public class Environment extends JPanel {
         }
 
         /*
-        triangles.addAll(Tri.rectangleNormalToAxis(
+        triangles.addAll(Tri.rectangle(
                 Vec.o().x(75).y(50).z(75),
                 Vec.o().x(75).y(-50).z(50),
                 Axis.X
@@ -34,6 +38,9 @@ public class Environment extends JPanel {
         triangles.add(new Tri(Vec.o().x(100),Vec.o(),Vec.o().y(100), Color.GREEN) );
         triangles.add(new Tri(Vec.o().y(100),Vec.o(),Vec.o().z(100), Color.BLUE) );
          */
+        triangles.addAll(Tri.strip(
+                c[0],c[1],c[2],c[3]
+        ));
 
         triangles.addAll(fromFiles());
     }
@@ -70,6 +77,11 @@ public class Environment extends JPanel {
         }
 
         drawTriangles(cg);
+
+        cg.drawPoint(c[0]);
+        cg.drawPoint(c[1]);
+        cg.drawPoint(c[2]);
+        cg.drawPoint(c[3]);
     }
 
     private void drawTriangles(CGraphics cg) {
@@ -86,8 +98,9 @@ public class Environment extends JPanel {
             for(Tri t : triangles){
                 fillTriangle(cg,t);
                 cg.setColor(Color.BLACK);
-                drawTriangle(cg,t);
-                //debugTriangle(cg,t,triangles.size()-i);
+                //drawTriangle(cg,t);
+                cg.setColor(Color.WHITE);
+                debugTriangle(cg,t,triangles.size()-i);
                 i++;
             }
         }
