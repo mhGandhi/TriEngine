@@ -17,7 +17,7 @@ public class SimpleProjector extends Projector{
     @Override
     public int[] project(Vec pSysPos) {
         Vec centerOfView = Vec.o().x(svs.offSetX).y(svs.offSetY).z(svs.offSetZ);
-        pSysPos = Vec.add(pSysPos, centerOfView);
+        pSysPos = Vec.add(pSysPos, centerOfView).scale(svs.scale);
 
         pSysPos = rotatePv(pSysPos, centerOfView, svs.angleX, Axis.X);
         pSysPos = rotatePv(pSysPos, centerOfView, svs.angleY, Axis.Y);
@@ -95,6 +95,7 @@ public class SimpleProjector extends Projector{
 
 
     public static class SimpleViewState extends ViewState {
+        //todo make everything private and use getset; setAngle(newangle,axis){bound it}; scale(change){converge}
         public double angleX = 0;
         public double angleY = 0;
         public double angleZ = 0;
@@ -102,5 +103,7 @@ public class SimpleProjector extends Projector{
         public double offSetX = 600;
         public double offSetY = 500;
         public double offSetZ = 0;
+
+        public double scale = 1;
     }
 }

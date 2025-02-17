@@ -5,13 +5,20 @@ import com.triengine.projectors.viewstates.ViewState;
 
 import java.awt.event.*;
 
-public class ActionListener implements MouseMotionListener, ComponentListener, MouseListener {
+public class ActionListener implements MouseMotionListener, ComponentListener, MouseListener, MouseWheelListener {
     private final ViewState viewState;
     private final App app;
 
     public ActionListener(App pApp, ViewState viewState) {
         this.app = pApp;
         this.viewState = viewState;
+    }
+
+
+    int currentMB = 0;
+    @Override
+    public void mousePressed(MouseEvent e) {
+        currentMB = e.getButton();
     }
 
     int[] lastPos = {0,0};
@@ -49,11 +56,6 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
         lastPos[1] = e.getY();
     }
 
-    /**
-     * Invoked when the component's size changes.
-     *
-     * @param e the event to be processed
-     */
     @Override
     public void componentResized(ComponentEvent e) {
         viewState.screenHeight = e.getComponent().getHeight();
@@ -61,57 +63,51 @@ public class ActionListener implements MouseMotionListener, ComponentListener, M
         app.repaint();
     }
 
-    /**
-     * Invoked when the component's position changes.
-     *
-     * @param e the event to be processed
-     */
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        //System.out.println();
+        //System.out.println("type: "+e.getScrollType());
+        //System.out.println("scroll amount: "+e.getScrollAmount());
+        //System.out.println("units to scroll: "+e.getUnitsToScroll());
+        //System.out.println("wheel rotation: "+e.getWheelRotation());
+        //System.out.println("precise rotation: "+e.getPreciseWheelRotation());
+
+        if(viewState instanceof SimpleProjector.SimpleViewState svs){
+            if(e.getWheelRotation()>0){//zoom out
+                svs.scale = svs.scale*0.9;
+            }else{
+                svs.scale = svs.scale*1.1;
+            }
+            System.out.println(svs.scale);
+        }
+        app.repaint();
+    }
+
+
     @Override
     public void componentMoved(ComponentEvent e) {
 
     }
-
-    /**
-     * Invoked when the component has been made visible.
-     *
-     * @param e the event to be processed
-     */
     @Override
     public void componentShown(ComponentEvent e) {
 
     }
-
-    /**
-     * Invoked when the component has been made invisible.
-     *
-     * @param e the event to be processed
-     */
     @Override
     public void componentHidden(ComponentEvent e) {
 
     }
-
     @Override
     public void mouseClicked(MouseEvent e) {
 
     }
-
-    int currentMB = 0;
-    @Override
-    public void mousePressed(MouseEvent e) {
-        currentMB = e.getButton();
-    }
-
     @Override
     public void mouseReleased(MouseEvent e) {
 
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
 
