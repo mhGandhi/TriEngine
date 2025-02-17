@@ -10,7 +10,7 @@ public class App {
 
     public App(){
         SimpleProjector projector = new SimpleProjector();
-        ActionHandler actionListener = new ActionHandler(this, projector.svs);
+        ActionHandler actionListener = new ActionHandler(this, projector.viewState);
 
 
         env = new Environment(actionListener, projector);
