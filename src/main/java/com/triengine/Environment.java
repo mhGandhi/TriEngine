@@ -79,10 +79,10 @@ public class Environment extends JPanel {
             }
         }
 
-        if(projector instanceof SimpleProjector sp){
-            for(int i = triangles.size()-1; i>0; i--){
+        {//painting shenanigans
+            for (int i = triangles.size() - 1; i > 0; i--) {
                 Tri t = triangles.get(i);
-                if(t.contains(sp.svs.mousePos,projector)){
+                if (t.contains(projector.viewState.mousePos, projector)) {
                     t.col = Color.red;
                     break;
                 }

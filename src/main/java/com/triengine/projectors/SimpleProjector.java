@@ -1,7 +1,6 @@
 package com.triengine.projectors;
 
 import com.triengine.Axis;
-import com.triengine.Plane;
 import com.triengine.Vec;
 import com.triengine.projectors.viewstates.ViewState;
 
@@ -10,13 +9,15 @@ public class SimpleProjector extends Projector{
     public static final double OFFSET_FOR_PROJECTION = (0.707 / 2);
     public static final Vec VIEW_DIRECTION = Vec.v(1, OFFSET_FOR_PROJECTION, OFFSET_FOR_PROJECTION).normalize();
 
-    public final SimpleViewState svs;
 
     public SimpleProjector() {
         this(new SimpleViewState());
     }
     public SimpleProjector(SimpleViewState svs) {
-        this.svs = svs;
+        super(svs);
+    }
+    public SimpleViewState getSvs(){
+        return (SimpleViewState) this.viewState;
     }
 
     /**
@@ -26,14 +27,14 @@ public class SimpleProjector extends Projector{
      */
     @Override
     public int[] project(Vec pSysPos) {
-        Vec centerOfSystem = Vec.v(svs.offSetX,svs.offSetY+(svs.screenWidth/2d),svs.offSetZ-(svs.screenHeight/2d));
+        Vec centerOfSystem = Vec.v(getSvs().offSetX,getSvs().offSetY+(getSvs().screenWidth/2d),getSvs().offSetZ-(getSvs().screenHeight/2d));
         Vec centerOfRotation = Vec.add(centerOfSystem);
 
-        pSysPos = Vec.add(pSysPos.scale(svs.scale), centerOfSystem);
+        pSysPos = Vec.add(pSysPos.scale(getSvs().scale), centerOfSystem);
 
-        pSysPos = rotatePv(pSysPos, centerOfRotation, svs.angleHorizontal, Axis.Z);
+        pSysPos = rotatePv(pSysPos, centerOfRotation, getSvs().angleHorizontal, Axis.Z);
         //pSysPos = rotatePv(pSysPos, centerOfSystem, svs.angleX, Axis.X);
-        pSysPos = rotatePv(pSysPos, centerOfRotation, svs.angleVertical, Axis.Y);
+        pSysPos = rotatePv(pSysPos, centerOfRotation, getSvs().angleVertical, Axis.Y);
 
         int rX = 0;
         int rY = 0;
