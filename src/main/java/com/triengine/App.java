@@ -2,6 +2,7 @@ package com.triengine;
 
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
+import com.triengine.vectors.Vector;
 
 import javax.swing.*;
 import java.awt.*;

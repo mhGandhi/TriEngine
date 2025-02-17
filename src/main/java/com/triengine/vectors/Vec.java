@@ -1,4 +1,6 @@
-package com.triengine;
+package com.triengine.vectors;
+
+import com.triengine.Plane;
 
 public abstract class Vec {
     public abstract double getX();

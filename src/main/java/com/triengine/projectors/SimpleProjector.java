@@ -1,8 +1,8 @@
 package com.triengine.projectors;
 
 import com.triengine.Axis;
-import com.triengine.Vec;
-import com.triengine.Vector;
+import com.triengine.vectors.Vec;
+import com.triengine.vectors.Vector;
 import com.triengine.projectors.viewstates.ViewState;
 
 public class SimpleProjector extends Projector{

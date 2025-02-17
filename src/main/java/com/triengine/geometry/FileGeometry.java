@@ -1,7 +1,7 @@
 package com.triengine.geometry;
 
 import com.triengine.Tri;
-import com.triengine.Vector;
+import com.triengine.vectors.Vector;
 
 import java.awt.*;
 import java.io.IOException;

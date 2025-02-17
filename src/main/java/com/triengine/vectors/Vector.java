@@ -1,4 +1,4 @@
-package com.triengine;
+package com.triengine.vectors;
 
 import java.util.Objects;
 

@@ -1,5 +1,8 @@
 package com.triengine;
 
+import com.triengine.vectors.Vec;
+import com.triengine.vectors.Vector;
+
 import java.util.ArrayList;
 import java.util.Collection;
 

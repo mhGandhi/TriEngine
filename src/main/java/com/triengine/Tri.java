@@ -1,6 +1,8 @@
 package com.triengine;
 
 import com.triengine.projectors.Projector;
+import com.triengine.vectors.Vec;
+import com.triengine.vectors.Vector;
 
 import java.awt.*;
 import java.util.ArrayList;

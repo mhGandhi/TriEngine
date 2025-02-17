@@ -4,6 +4,8 @@ import com.triengine.geometry.FileGeometry;
 import com.triengine.geometry.Geometry;
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
+import com.triengine.vectors.Vec;
+import com.triengine.vectors.Vector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +16,11 @@ public class Environment extends JPanel {
     Projector projector;
 
     Geometry pyramid;
-    Vector[] c = {
-            Vector.v(500,-100,-10),
-            Vector.v(500,100,-10),
-            Vector.v(-500,100,-10),
-            Vector.v(-500,-100,-10)
+    com.triengine.vectors.Vector[] c = {
+            com.triengine.vectors.Vector.v(500,-100,-10),
+            com.triengine.vectors.Vector.v(500,100,-10),
+            com.triengine.vectors.Vector.v(-500,100,-10),
+            com.triengine.vectors.Vector.v(-500,-100,-10)
     };
 
     public Environment(ActionHandler pAc, Projector p){
@@ -42,13 +44,13 @@ public class Environment extends JPanel {
         CGraphics cg = new CGraphics(g2d, projector);
 
         {//draw bg geometry
-            Vector e1 = Vector.o().x(1000);
+            com.triengine.vectors.Vector e1 = com.triengine.vectors.Vector.o().x(1000);
             cg.setColor(Color.red);
             cg.drawStraight(e1);
-            Vector e2 = Vector.o().y(1000);
+            com.triengine.vectors.Vector e2 = com.triengine.vectors.Vector.o().y(1000);
             cg.setColor(Color.green);
             cg.drawStraight(e2);
-            Vector e3 = Vector.o().z(1000);
+            com.triengine.vectors.Vector e3 = com.triengine.vectors.Vector.o().z(1000);
             cg.setColor(Color.blue);
             cg.drawStraight(e3);
         }
@@ -71,8 +73,8 @@ public class Environment extends JPanel {
                 c[0],c[1],c[2],c[3]
         ));
         triangles.addAll(TriGen.rectangle(
-                Vector.v(150,50,150),
-                Vector.v(50,150,150),
+                com.triengine.vectors.Vector.v(150,50,150),
+                com.triengine.vectors.Vector.v(50,150,150),
                 Axis.Z
         ));
 
