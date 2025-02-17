@@ -107,6 +107,9 @@ public class TriGen {
             Vec a=nextA,b=nextB,c=nextC;
             Vec[] t = {a,b,c};
             currentLen+=segmentLen/2;
+            if(currentLen>=totalLen-segmentLen/2){
+                t[0] = backLeft;
+            }
             if(currentLen>=totalLen){
                 t[0] = backRight;
                 t[1] = backLeft;
