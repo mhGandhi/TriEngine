@@ -12,12 +12,21 @@ import java.util.List;
 
 public class Pillar extends ImmutableGeometry {
 
-    public Pillar(Vec pVector, Vec pSupport, double pR, double pRes) {
+    //todo fix 8-10
+    public Pillar(Vec pVector, Vec pSupport, double pR, double pRes){
         super(buildPillar(pVector, pSupport, pR, pRes));
     }
 
     private static Collection<Tri> buildPillar(Vec pVector, Vec pSupport, double pR, double pRes) {
-        List<Vec> vecs = generateCircleVectors(pSupport, pR, pRes, pVector);
+        if(pRes<2){
+            System.err.println("Resolution must be at least 2");
+            pRes = 2;
+        }
+        if(pR<1){
+            System.err.println("Radius must be at least 1");
+            pR = 1;
+        }
+        List<Vec> vecs = generateCircleVectors(pSupport, pR, (double)360/pRes, pVector);
         //vecs = List.of(Vec.v(30,30,0),Vec.v(-30,30,0),Vec.v(-30,-30,0),Vec.v(30,-30,0));
         //System.out.println(vecs.size());
         //return Tri.t(vecs.get(0).v(),vecs.get(1).v(),pSupport.v());
@@ -28,8 +37,7 @@ public class Pillar extends ImmutableGeometry {
         for(int i = 0; i < points[0].length; i++){
             points[0][i] = vecs.get(i).v();
             points[1][i] = Vec.add(vecs.get(i),pVector);
-
-            System.out.println(points[0][i]+" "+points[1][i]);
+            //System.out.println(points[0][i]+" "+points[1][i]);
         }
         Collection<Tri> triangles = new ArrayList<>();
 
@@ -45,17 +53,6 @@ public class Pillar extends ImmutableGeometry {
             triangles.addAll(Tri.t(points[1][i],points[1][i+1],Vec.add(pSupport,pVector)));
         }
         //System.out.println(triangles.size());
-
-        SetVector normal = pVector.normalize();
-        Vec arbitrary = (Math.abs(normal.x) < Math.abs(normal.y) && Math.abs(normal.x) < Math.abs(normal.z)) ? Vec.v(1, 0, 0) : Vec.v(0, 1, 0);
-        Vec U = normal.cross(arbitrary).normalize();
-        Vec V = normal.cross(U).normalize();
-        triangles.addAll(Tri.t(
-                pSupport.v(),
-                Vec.add(pSupport, U.scale(pR)),
-                Vec.add(pSupport,V.scale(pR)),
-                Color.CYAN
-        ));
         return triangles;
     }
 

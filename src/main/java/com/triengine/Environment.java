@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.List;
 
 public class Environment extends JPanel {
+    private static final int MAXTRIANGLES = 100000;
     Projector projector;
     Geometry pyramid;
     Geometry pillar;
@@ -38,9 +39,9 @@ public class Environment extends JPanel {
 
         pyramid = new FileGeometry("pyramid");
         pillar = new Pillar(
-                Vec.v(0,0,100),
+                Vec.v(-30,30,200),
                 Vec.v(0,0,0),
-                90d,30d
+                50d,7
         );
     }
 
@@ -133,6 +134,10 @@ public class Environment extends JPanel {
                 cg.setColor(Color.WHITE);
                 //debugTriangle(cg,t,triangles.size()-i);
                 i++;
+                if(i>MAXTRIANGLES){
+                    System.err.println("max triangles set to "+MAXTRIANGLES);
+                    break;
+                }
             }
         }
     }
