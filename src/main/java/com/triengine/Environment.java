@@ -39,9 +39,9 @@ public class Environment extends JPanel {
 
         pyramid = new FileGeometry("pyramid");
         pillar = new Pillar(
-                Vec.v(-30,30,200),
+                Vec.v(0,0,200),
                 Vec.v(0,0,0),
-                50d,7
+                15d,7
         );
     }
 
