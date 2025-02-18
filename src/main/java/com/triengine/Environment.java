@@ -2,6 +2,7 @@ package com.triengine;
 
 import com.triengine.geometry.FileGeometry;
 import com.triengine.geometry.Geometry;
+import com.triengine.geometry.Pillar;
 import com.triengine.projectors.Projector;
 import com.triengine.projectors.SimpleProjector;
 import com.triengine.vectors.UnstableVector;
@@ -15,8 +16,9 @@ import java.util.List;
 
 public class Environment extends JPanel {
     Projector projector;
-
     Geometry pyramid;
+    Geometry pillar;
+
     SetVector[] c = {
             SetVector.v(500,-100,-10),
             SetVector.v(500,100,-10),
@@ -35,6 +37,11 @@ public class Environment extends JPanel {
         }
 
         pyramid = new FileGeometry("pyramid");
+        pillar = new Pillar(
+                Vec.v(0,0,100),
+                Vec.v(0,0,0),
+                90d,30d
+        );
     }
 
     @Override
@@ -69,7 +76,8 @@ public class Environment extends JPanel {
     private List<Tri> makeTriangles(){
         List<Tri> triangles = new ArrayList<>();
 
-        triangles.addAll(pyramid.getTriangles());
+        //triangles.addAll(pyramid.getTriangles());
+        /*
         triangles.addAll(TriGen.strip(
                 c[0],c[1],c[2],c[3]
         ));
@@ -77,14 +85,19 @@ public class Environment extends JPanel {
                 Vec.v(150,50,150),
                 Vec.v(50,150,150),
                 Axis.Z
-        ));
+        ));*/
 
+        triangles.addAll(pillar.getTriangles());
+
+        /*
         triangles.addAll(Tri.t(
                 Vec.v(200,200,200),
                 Vec.v(300,200,300),
                 new UnstableVector(Vec.v(200,300,200),10d).v(),
                 Color.CYAN
         ));
+         */
+
 
         {//sort
             try {
@@ -93,7 +106,6 @@ public class Environment extends JPanel {
                 e.printStackTrace();
             }
         }
-
         {//painting shenanigans todo
             for (int i = triangles.size() - 1; i > 0; i--) {
                 Tri t = triangles.get(i);

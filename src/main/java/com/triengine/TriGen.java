@@ -115,6 +115,7 @@ public class TriGen {
         SetVector nextC = frontLeft;
 
         double currentLen = 0;
+        int i = 1000;
         while(currentLen<totalLen){
             SetVector a=nextA,b=nextB,c=nextC;
             SetVector[] t = {a,b,c};
@@ -131,6 +132,11 @@ public class TriGen {
             nextA = SetVector.add(b,direction);
             nextB = a;
             nextC = b;
+            i--;
+            if(i<=0){
+                System.err.println("Strip too big");
+                break;
+            }
         }
 
         return triangles;

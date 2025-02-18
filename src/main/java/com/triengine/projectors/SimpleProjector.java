@@ -26,7 +26,7 @@ public class SimpleProjector extends Projector{
     @Override
     public int[] project(Vec pSysPos) {
         SetVector centerOfSystem = SetVector.v(getSvs().offSetX,getSvs().offSetY+(getSvs().screenWidth/2d),getSvs().offSetZ-(getSvs().screenHeight/2d));
-        SetVector centerOfRotation = SetVector.add(centerOfSystem);
+        SetVector centerOfRotation = centerOfSystem.v();
 
         pSysPos = SetVector.add(pSysPos.scale(getSvs().scale), centerOfSystem);
 

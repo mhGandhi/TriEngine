@@ -45,6 +45,10 @@ public abstract class Vec {
         return ret;
     }
 
+    public SetVector add(Vec vec){
+        return Vec.add(vec, this);
+    }
+
     public SetVector v(){
         return Vec.v(getX(),getY(),getZ());
     }
